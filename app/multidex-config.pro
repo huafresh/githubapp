@@ -1,0 +1,3 @@
+-keep class androidx.startup.AppInitializer
+-keep class androidx.startup.InitializationProvider
+-keep class * extends androidx.startup.Initializer
