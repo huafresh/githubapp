@@ -1,14 +1,11 @@
 package com.hua.github_app.ui.adapter
 
-import android.view.View
-import android.widget.BaseAdapter
-import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.hua.github_app.R
 import com.hua.github_app.databinding.LayoutItemRepositoryBinding
 import com.hua.github_app.http.entity.Repository
+import com.hua.github_app.image.ImageLoader
 
 /**
  * Created on 2022/8/10.
@@ -25,9 +22,14 @@ class RepositoryAdapter constructor(
         holder: BaseDataBindingHolder<LayoutItemRepositoryBinding>,
         item: Repository
     ) {
-        holder.dataBinding?.item = item
-        holder.dataBinding?.ivUserAvatar?.run {
-            Glide.with(holder.itemView).load(item.owner?.avatarUrl)
+        val binding = holder.dataBinding
+        if (binding != null) {
+            binding.item = item
+            binding.ivUserAvatar.run {
+                ImageLoader.with(holder.itemView)
+                    .load(item.owner?.avatarUrl)
+                    .into(binding.ivUserAvatar)
+            }
         }
     }
 }
