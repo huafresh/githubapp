@@ -5,6 +5,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.material.snackbar.Snackbar
 import com.hua.github_app.R
 import com.hua.github_app.http.AppRetrofit
 import com.hua.github_app.http.entity.Repository
@@ -26,22 +27,23 @@ class SearchRepoListViewModel : BaseRepoListViewModel() {
     fun onQueryTextSubmit(context: Context, query: String?) {
         launchMain({
             if (query.isNullOrBlank()) {
-                //Toasty.warning(context, context.getString(R.string.text_is_empty))
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.text_is_empty),
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@launchMain
             }
+            this@SearchRepoListViewModel.query = query
             super.initData()
         }, {
             LogUtil.e(TAG, "onQueryTextSubmit", it)
         })
     }
 
-    fun onQueryTextChange(newText: String?) {
-        this.query = newText
-    }
-
     override suspend fun fetchRepoListWithPage(page: Int): List<Repository> {
         LogUtil.i(TAG, "search repo list: page=$page")
-        if(query.isNullOrBlank()) return emptyList()
+        if (query.isNullOrBlank()) return emptyList()
         val searchResult = AppRetrofit.getSearchService()
             .searchRepos(query, "stars", "desc", page)
         val list = searchResult.items ?: emptyList()

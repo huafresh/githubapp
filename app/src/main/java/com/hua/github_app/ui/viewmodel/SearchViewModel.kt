@@ -19,16 +19,12 @@ class SearchViewModel : BaseViewModel() {
         private const val TAG = "SearchViewModel"
     }
 
-    private val _inputMode = MutableLiveData<Boolean>()
-    val inputMode: LiveData<Boolean> = _inputMode
-
     private val _title = MutableLiveData<String>()
     val title: LiveData<String> = _title
 
     fun initData(context: Context) {
         launchMain({
             _title.value = ""
-            _inputMode.value = true
         }, {
             LogUtil.e(TAG, "initData", it)
         })
@@ -38,7 +34,6 @@ class SearchViewModel : BaseViewModel() {
         launchMain({
             LogUtil.i(TAG, "onQueryTextSubmit: ")
             _title.value = query
-            _inputMode.postValue(false)
         }, {
             LogUtil.e(TAG, "onQueryTextSubmit", it)
         })

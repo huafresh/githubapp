@@ -22,7 +22,7 @@ class App : Application() {
                 return R.layout.load_error
             }
         })
-        LoadViewHelper.registerLoadingLayout(object :BaseLayoutProvider(){
+        LoadViewHelper.registerEmptyLayout(object :BaseLayoutProvider(){
             override fun layoutId(): Int {
                 return R.layout.load_empty
             }

@@ -9,5 +9,6 @@
     <string name="text_is_empty">text is empty</string>
     <string name="retry">retry</string>
     <string name="load_error_tips">load error, pull down to refresh</string>
+    <string name="profile_not_finish">profile page has not finish yet!!!</string>
 
 </resources>

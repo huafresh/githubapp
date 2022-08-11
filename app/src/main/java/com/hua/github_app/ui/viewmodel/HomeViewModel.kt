@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.material.snackbar.Snackbar
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.http.AppRetrofit
@@ -51,7 +52,11 @@ class HomeViewModel : BaseViewModel() {
 
     fun onClickAvatar(v: View) {
         launchMain({
-
+            Snackbar.make(
+                v,
+                v.context.getString(R.string.profile_not_finish),
+                Snackbar.LENGTH_SHORT
+            ).show()
         }, {
             LogUtil.e(TAG, "onClickAvatar", it)
         })

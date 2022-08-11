@@ -13,6 +13,7 @@ import com.hua.github_app.loadview.LoadViewHelper
 import com.hua.github_app.ui.activity.IRepoListHost
 import com.hua.github_app.ui.adapter.RepoListAdapter
 import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
+import com.hua.github_app.utils.LogUtil
 
 /**
  * Created on 2022/8/10.

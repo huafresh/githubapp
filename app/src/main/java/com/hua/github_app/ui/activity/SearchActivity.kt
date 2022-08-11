@@ -100,19 +100,10 @@ class SearchActivity : BaseActivity(), IRepoListHost {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                searchRepoVm.onQueryTextChange(newText)
                 return true
             }
         })
-        searchVm.inputMode.observe(this) { inputMode ->
-            LogUtil.i(TAG, "setupSearchView: inpuMode=$inputMode")
-            if (!inputMode) {
-                searchView.setQuery("", false)
-                searchView.isIconified = true
-            } else {
-                searchView.isIconified = false
-            }
-        }
+        searchView.isIconified = false
     }
 
     override fun getRepoListViewModel(): BaseRepoListViewModel {
