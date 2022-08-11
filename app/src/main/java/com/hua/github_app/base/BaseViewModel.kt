@@ -9,7 +9,7 @@ import kotlinx.coroutines.*
  *
  * @author hua
  */
-open class BaseViewModel : ViewModel(), LifecycleObserver {
+open class BaseViewModel : ViewModel() {
 
     companion object {
         private const val TAG = "BaseViewModel"

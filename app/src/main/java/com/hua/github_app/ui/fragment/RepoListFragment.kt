@@ -5,9 +5,11 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseFragment
 import com.hua.github_app.databinding.FragmentListBinding
+import com.hua.github_app.loadview.LoadViewHelper
 import com.hua.github_app.ui.activity.IRepoListHost
 import com.hua.github_app.ui.adapter.RepoListAdapter
 import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
@@ -26,28 +28,47 @@ class RepoListFragment : BaseFragment() {
         return R.layout.fragment_list
     }
 
+    private var loadViewHelper: LoadViewHelper? = null
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         checkHostActivity()
-        initViews()
-        initData()
-        observes()
+        val binding = view?.let { FragmentListBinding.bind(it) }
+        if (binding != null) {
+            initViews(binding)
+            initData()
+            observes(binding)
+        }
     }
 
     private fun initData() {
         vm.initData()
     }
 
-    private fun observes() {
-        observeShowingDialog(vm)
+    @SuppressLint("NotifyDataSetChanged")
+    private fun observes(binding: FragmentListBinding) {
+        vm.observeShowingDialog()
+        vm.isRefreshing.observe(this) { isRefreshing ->
+            binding.swipeRefreshLayout.isRefreshing = isRefreshing
+        }
+        val adapter = binding.recyclerView.adapter as RepoListAdapter
+        vm.repositoryList.observe(this) { dataList ->
+            adapter.data = dataList.toMutableList()
+            adapter.notifyDataSetChanged()
+        }
+        vm.loadMoreDataList.observe(this) { appendList ->
+            adapter.addData(appendList)
+        }
+        vm.loadHelpViewModel.run {
+            viewType.observe(this@RepoListFragment) { viewType ->
+                loadViewHelper?.showWithType(viewType)
+            }
+        }
     }
 
-    private fun initViews() {
-        val binding = view?.let { FragmentListBinding.bind(it) }
-        if (binding != null) {
-            setupRecyclerView(binding.recyclerView)
-            setupSwipeRefreshLayout(binding.swipeRefreshLayout)
-        }
+    private fun initViews(binding: FragmentListBinding) {
+        setupRecyclerView(binding.recyclerView)
+        setupSwipeRefreshLayout(binding.swipeRefreshLayout)
     }
 
     private fun checkHostActivity() {
@@ -59,24 +80,14 @@ class RepoListFragment : BaseFragment() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun setupRecyclerView(rv: RecyclerView) {
         rv.layoutManager = LinearLayoutManager(rv.context)
         val adapter = RepoListAdapter()
         rv.adapter = adapter
-        vm.repositoryList.observe(this) { dataList ->
-            adapter.data = dataList.toMutableList()
-            adapter.notifyDataSetChanged()
-        }
-        vm.loadMoreDataList.observe(this) { appendList ->
-            adapter.addData(appendList)
-        }
+        loadViewHelper = LoadViewHelper.wrap(rv)
     }
 
     private fun setupSwipeRefreshLayout(refreshLayout: SwipeRefreshLayout) {
-        vm.isRefreshing.observe(this) { isRefreshing ->
-            refreshLayout.isRefreshing = isRefreshing
-        }
         refreshLayout.setOnRefreshListener {
             vm.pullToRefresh()
         }

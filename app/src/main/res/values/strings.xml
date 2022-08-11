@@ -7,5 +7,7 @@
     <string name="search">search</string>
     <string name="home">home</string>
     <string name="text_is_empty">text is empty</string>
+    <string name="retry">retry</string>
+    <string name="load_error_tips">load error, pull down to refresh</string>
 
 </resources>

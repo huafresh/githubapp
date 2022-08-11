@@ -20,8 +20,8 @@ abstract class BaseFragment : Fragment() {
         ProgressDialogHelper(activity!!)
     }
 
-    protected fun observeShowingDialog(vm: BaseViewModel) {
-        progressDialogHelper.observeShowingDialog(vm)
+    protected fun BaseViewModel.observeShowingDialog() {
+        progressDialogHelper.observeShowingDialog(this)
     }
 
     override fun onCreateView(

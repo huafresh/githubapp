@@ -30,6 +30,8 @@ abstract class BaseRepoListViewModel : BaseViewModel() {
     private val _loadMoreDataList = MutableLiveData<List<Repository>>()
     val loadMoreDataList: LiveData<List<Repository>> = _loadMoreDataList
 
+    val loadHelpViewModel = LoadHelpViewModel()
+
     fun initData() {
         launchMain({
             page = 0
@@ -38,26 +40,21 @@ abstract class BaseRepoListViewModel : BaseViewModel() {
                 fetchRepoListWithPage(page)
             }
             _repositoryList.value = list
+            if (list.isEmpty()) {
+                loadHelpViewModel.showEmpty()
+            } else {
+                loadHelpViewModel.showContent()
+            }
             _isRefreshing.value = false
         }, {
-            _isRefreshing.value = false
             LogUtil.e(TAG, "initData", it)
+            _isRefreshing.value = false
+            loadHelpViewModel.showError()
         })
     }
 
     fun pullToRefresh() {
-        launchMain({
-            _isRefreshing.value = true
-            page = 0
-            val list = withContext(Dispatchers.IO) {
-                fetchRepoListWithPage(page)
-            }
-            _repositoryList.value = list
-            _isRefreshing.value = false
-        }, {
-            LogUtil.e(TAG, "pullToRefresh", it)
-            _isRefreshing.value = false
-        })
+        initData()
     }
 
     fun loadMoreData() {

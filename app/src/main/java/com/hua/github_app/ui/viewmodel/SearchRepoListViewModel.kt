@@ -29,7 +29,7 @@ class SearchRepoListViewModel : BaseRepoListViewModel() {
                 //Toasty.warning(context, context.getString(R.string.text_is_empty))
                 return@launchMain
             }
-            super.pullToRefresh()
+            super.initData()
         }, {
             LogUtil.e(TAG, "onQueryTextSubmit", it)
         })
