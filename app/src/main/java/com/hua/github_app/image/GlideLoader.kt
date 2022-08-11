@@ -14,12 +14,21 @@ import com.bumptech.glide.request.transition.Transition
  */
 internal class GlideLoader : ILoader {
     override fun load(options: RequestOptions, target: ITarget) {
-        var requestBuilder = Glide.with(options.context)
-            .load(options.url)
+        var requestBuilder = Glide.with(options.context).load(options.url)
 
         val errorResId = options.errorResId
         if (errorResId != null) {
             requestBuilder = requestBuilder.error(errorResId)
+        }
+
+        val errorDrawable = options.errorDrawable
+        if (errorDrawable != null) {
+            requestBuilder = requestBuilder.error(errorDrawable)
+        }
+
+        val placeholderDrawable = options.placeholderDrawable
+        if (placeholderDrawable != null) {
+            requestBuilder = requestBuilder.error(placeholderDrawable)
         }
 
         // ... add more options in the future

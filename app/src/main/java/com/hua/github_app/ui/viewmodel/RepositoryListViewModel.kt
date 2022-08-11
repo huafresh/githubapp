@@ -40,6 +40,7 @@ class RepositoryListViewModel : BaseViewModel() {
             _repositoryList.value = list
             _isRefreshing.value = false
         }, {
+            _isRefreshing.value = false
             LogUtil.e(TAG, "fetchRepositoryList", it)
         })
     }

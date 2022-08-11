@@ -1,6 +1,7 @@
 package com.hua.github_app.image
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 
 /**
@@ -20,6 +21,10 @@ class RequestOptions private constructor(val context: Context) {
         private set
     var errorResId: Int? = null
         private set
+    var errorDrawable: Drawable? = null
+        private set
+    var placeholderDrawable: Drawable? = null
+        private set
 
     fun load(url: String?): RequestOptions {
         this.url = url
@@ -28,6 +33,16 @@ class RequestOptions private constructor(val context: Context) {
 
     fun error(resId: Int): RequestOptions {
         this.errorResId = resId
+        return this
+    }
+
+    fun error(errorDrawable: Drawable?): RequestOptions {
+        this.errorDrawable = errorDrawable
+        return this
+    }
+
+    fun placeholder(placeholder: Drawable?): RequestOptions {
+        this.placeholderDrawable = placeholder
         return this
     }
 

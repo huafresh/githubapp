@@ -3,6 +3,7 @@ package com.hua.github_app.http
 import androidx.annotation.NonNull
 import com.hua.github_app.http.api.LoginService
 import com.hua.github_app.http.api.RepoService
+import com.hua.github_app.http.api.SearchService
 import com.hua.github_app.http.api.UserService
 import com.hua.github_app.utils.LogUtil
 import okhttp3.OkHttpClient
@@ -36,6 +37,10 @@ object AppRetrofit {
 
     fun getRepoService(): RepoService {
         return getRetrofit(GITHUB_API_BASE_URL).create(RepoService::class.java)
+    }
+
+    fun getSearchService(): SearchService {
+        return getRetrofit(GITHUB_API_BASE_URL).create(SearchService::class.java)
     }
 
     private fun getRetrofit(baseUrl: String): Retrofit {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.hua.github_app.base.BaseActivity
 import com.hua.github_app.ui.activity.HomeActivity
 import com.hua.github_app.ui.activity.LoginActivity
+import com.hua.github_app.ui.activity.SearchActivity
 import com.hua.github_app.ui.login.LoginManager
 
 /**
@@ -19,7 +20,7 @@ class SplashActivity : BaseActivity() {
         if (LoginManager.token != null) {
             HomeActivity.jumpHome(this)
         } else {
-            HomeActivity.jumpHome(this)
+            SearchActivity.jumpSearch(this)
         }
         finish()
     }
