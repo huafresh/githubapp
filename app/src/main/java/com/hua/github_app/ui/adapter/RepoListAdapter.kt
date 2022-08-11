@@ -12,7 +12,7 @@ import com.hua.github_app.image.ImageLoader
  *
  * @author hua
  */
-class RepositoryAdapter constructor(
+class RepoListAdapter constructor(
     data: MutableList<Repository>? = null
 ) : BaseQuickAdapter<Repository, BaseDataBindingHolder<LayoutItemRepositoryBinding>>(
     R.layout.layout_item_repository,

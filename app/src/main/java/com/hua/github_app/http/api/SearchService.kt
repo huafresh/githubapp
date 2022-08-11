@@ -15,7 +15,7 @@ import retrofit2.http.Query
 interface SearchService {
 
     @GET("search/repositories")
-    fun searchRepos(
+    suspend fun searchRepos(
         @Query(value = "q", encoded = true) query: String?,
         @Query("sort") sort: String?,
         @Query("order") order: String?,

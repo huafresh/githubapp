@@ -19,10 +19,15 @@ class SearchViewModel : BaseViewModel() {
         private const val TAG = "SearchViewModel"
     }
 
+    private val _inputMode = MutableLiveData<Boolean>()
+    val inputMode: LiveData<Boolean> = _inputMode
 
+    private val _title = MutableLiveData<String>()
+    val title: LiveData<String> = _title
 
     fun initData(context: Context) {
         launchMain({
+            _title.value = ""
         }, {
             LogUtil.e(TAG, "initData", it)
         })
@@ -30,16 +35,11 @@ class SearchViewModel : BaseViewModel() {
 
     fun onQueryTextSubmit(context: Context, query: String?) {
         launchMain({
-            Toast.makeText(context, "hell", Toast.LENGTH_SHORT).show()
+            LogUtil.i(TAG, "onQueryTextSubmit: ")
+            _title.value = query
+            _inputMode.postValue(false)
         }, {
             LogUtil.e(TAG, "onQueryTextSubmit", it)
-        })
-    }
-
-    fun onQueryTextChange(context: Context, newText: String?) {
-        launchMain({
-        }, {
-            LogUtil.e(TAG, "onQueryTextChange", it)
         })
     }
 }

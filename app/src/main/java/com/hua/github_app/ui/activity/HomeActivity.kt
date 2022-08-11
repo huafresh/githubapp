@@ -4,23 +4,21 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import androidx.appcompat.widget.Toolbar
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
-import androidx.databinding.ViewDataBinding
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseActivity
 import com.hua.github_app.databinding.ActivityHomeBinding
-import com.hua.github_app.ui.fragment.RepositoryListFragment
+import com.hua.github_app.ui.fragment.RepoListFragment
+import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
 import com.hua.github_app.ui.viewmodel.HomeViewModel
+import com.hua.github_app.ui.viewmodel.MyRepoListViewModel
 
 /**
  * Created on 2022/8/10.
  *
  * @author hua
  */
-class HomeActivity : BaseActivity() {
+class HomeActivity : BaseActivity(), IRepoListHost {
 
     companion object {
         private const val TAG = "MainActivity"
@@ -35,15 +33,22 @@ class HomeActivity : BaseActivity() {
     }
 
     private val homeVm = HomeViewModel()
+    private val myRepoListVm = MyRepoListViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = setContentView<ActivityHomeBinding>(this, R.layout.activity_home)
+        val binding = setContentView<ActivityHomeBinding>(
+            this, R.layout.activity_home
+        )
         binding.lifecycleOwner = this
         binding.vm = homeVm
         supportFragmentManager.beginTransaction()
-            .add(R.id.fl_container, RepositoryListFragment())
+            .add(R.id.fl_container, RepoListFragment())
             .commit()
         homeVm.initData(this)
+    }
+
+    override fun getRepoListViewModel(): BaseRepoListViewModel {
+        return myRepoListVm
     }
 }

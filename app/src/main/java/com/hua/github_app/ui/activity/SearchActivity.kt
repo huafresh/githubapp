@@ -5,22 +5,25 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.MenuItemCompat
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseActivity
 import com.hua.github_app.databinding.ActivitySearchBinding
-import com.hua.github_app.ui.fragment.RepositoryListFragment
+import com.hua.github_app.ui.fragment.RepoListFragment
+import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
+import com.hua.github_app.ui.viewmodel.SearchRepoListViewModel
 import com.hua.github_app.ui.viewmodel.SearchViewModel
+import com.hua.github_app.utils.LogUtil
 
 /**
  * Created on 2022/8/11.
  *
  * @author hua
  */
-class SearchActivity : BaseActivity() {
+class SearchActivity : BaseActivity(), IRepoListHost {
 
     companion object {
         private const val TAG = "SearchActivity"
@@ -35,6 +38,7 @@ class SearchActivity : BaseActivity() {
     }
 
     private val searchVm = SearchViewModel()
+    private val searchRepoVm = SearchRepoListViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +46,9 @@ class SearchActivity : BaseActivity() {
         setContentView(binding.root)
         setupToolbar(binding.toolbar)
         supportFragmentManager.beginTransaction()
-            .add(R.id.fl_container, RepositoryListFragment())
+            .add(R.id.fl_container, RepoListFragment())
             .commit()
+        searchVm.initData(this)
     }
 
     private fun setupToolbar(toolBar: Toolbar) {
@@ -54,6 +59,9 @@ class SearchActivity : BaseActivity() {
         }
         toolBar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolBar.setNavigationOnClickListener { finish() }
+        searchVm.title.observe(this) { title ->
+            toolBar.title = title
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -70,14 +78,26 @@ class SearchActivity : BaseActivity() {
     private fun setupSearchView(searchView: SearchView) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                searchRepoVm.onQueryTextSubmit(this@SearchActivity, query)
                 searchVm.onQueryTextSubmit(this@SearchActivity, query)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                searchVm.onQueryTextChange(this@SearchActivity, newText)
+                searchRepoVm.onQueryTextChange(newText)
                 return true
             }
         })
+        searchVm.inputMode.observe(this) { inputMode ->
+            LogUtil.i(TAG, "setupSearchView: inpuMode=$inputMode")
+            if (!inputMode) {
+                searchView.setQuery("", false)
+                searchView.isIconified = true
+            }
+        }
+    }
+
+    override fun getRepoListViewModel(): BaseRepoListViewModel {
+        return searchRepoVm
     }
 }
