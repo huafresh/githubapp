@@ -11,8 +11,6 @@ android {
         targetSdkVersion rootProject.ext.TARGET_SDK_VERSION
         versionCode rootProject.ext.APP_VERSION_CODE
         versionName rootProject.ext.APP_VERSION_NAME
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -31,27 +29,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-//    kotlinOptions {
-//        jvmTarget = "1.8"
-//    }
 }
 
 dependencies {
-//    testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-//    api "com.google.android.material:material:1.2.1"
-//    api "androidx.core:core-ktx:1.8.0"
-
-
-//    implementation 'androidx.core:core-ktx:1.7.0'
-//    implementation 'androidx.appcompat:appcompat:1.4.2'
-//    implementation 'com.google.android.material:material:1.6.1'
-//    testImplementation 'junit:junit:4.13.2'
-//    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
     // google library
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
@@ -79,8 +59,5 @@ dependencies {
     // by viewModel用到
 //    implementation 'androidx.fragment:fragment-ktx:1.5.1'
 //    implementation 'androidx.activity:activity-ktx:1.5.1'
-
-    // 解决异常startup异常
-//    implementation "androidx.startup:startup-runtime:1.1.1"
 
 }

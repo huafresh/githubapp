@@ -11,12 +11,6 @@ import retrofit2.http.Query
  * @author hua
  */
 interface LoginService {
-//    @POST("authorizations")
-//    @Headers("Accept: application/json")
-//    fun authorizations(
-//        @NonNull @Body authRequestModel: AuthRequestModel?
-//    ): Observable<Response<BasicToken?>?>?
-
     @POST("login/oauth/access_token")
     @Headers("Accept: application/json")
     suspend fun getAccessToken(

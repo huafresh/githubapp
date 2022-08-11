@@ -1,4 +1,4 @@
-package com.hua.github_app.ui.login
+package com.hua.github_app.login
 
 /**
  * Created on 2022/8/10.

@@ -9,8 +9,7 @@ import com.hua.github_app.http.AppRetrofit
 import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.AppConfig
 import com.hua.github_app.ui.activity.HomeActivity
-import com.hua.github_app.ui.activity.LoginActivity
-import com.hua.github_app.ui.login.LoginManager
+import com.hua.github_app.login.LoginManager
 import com.hua.github_app.utils.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

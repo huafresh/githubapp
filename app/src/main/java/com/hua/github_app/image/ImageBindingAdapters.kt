@@ -13,7 +13,10 @@ object ImageBindingAdapters {
 
     @BindingAdapter("imageUrl", "error", "placeholder")
     @JvmStatic
-    fun loadImage(view: ImageView, url: String, error: Drawable?, placeholder: Drawable?) {
+    fun loadImage(
+        view: ImageView, url: String,
+        error: Drawable?, placeholder: Drawable?
+    ) {
         ImageLoader.with(view)
             .load(url)
             .placeholder(placeholder)

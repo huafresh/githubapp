@@ -31,7 +31,7 @@ internal class GlideLoader : ILoader {
             requestBuilder = requestBuilder.error(placeholderDrawable)
         }
 
-        // ... add more options in the future
+        // ... add more options here in the future
 
         if (target is ImageViewTarget) {
             requestBuilder.into(target.imageView)

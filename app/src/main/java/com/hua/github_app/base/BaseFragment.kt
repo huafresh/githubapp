@@ -17,11 +17,11 @@ abstract class BaseFragment : Fragment() {
     protected abstract fun layoutId(): Int
 
     private val progressDialogHelper by lazy {
-        ProgressDialogHelper(activity!!)
+        activity?.let { ProgressDialogHelper(it) }
     }
 
     protected fun BaseViewModel.observeShowingDialog() {
-        progressDialogHelper.observeShowingDialog(this)
+        progressDialogHelper?.observeShowingDialog(this)
     }
 
     override fun onCreateView(
@@ -34,6 +34,6 @@ abstract class BaseFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        progressDialogHelper.onDestroy()
+        progressDialogHelper?.onDestroy()
     }
 }

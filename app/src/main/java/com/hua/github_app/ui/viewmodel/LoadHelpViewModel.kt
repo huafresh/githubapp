@@ -15,8 +15,6 @@ import com.hua.github_app.utils.LogUtil
 class LoadHelpViewModel : BaseViewModel() {
     companion object {
         private const val TAG = "LoadHelpViewModel"
-        const val VIEW_TYPE_ERROR = 1
-        const val VIEW_TYPE_EMPTY = 2
     }
 
     private val _viewType = MutableLiveData<Int>()

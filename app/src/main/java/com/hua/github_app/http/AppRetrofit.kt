@@ -1,6 +1,7 @@
 package com.hua.github_app.http
 
 import androidx.annotation.NonNull
+import com.hua.github_app.AppConfig
 import com.hua.github_app.http.api.LoginService
 import com.hua.github_app.http.api.RepoService
 import com.hua.github_app.http.api.SearchService
@@ -20,8 +21,8 @@ import java.util.concurrent.TimeUnit
 object AppRetrofit {
     private const val TAG = "AppRetrofit"
 
-    private const val GITHUB_BASE_URL = "https://github.com/"
-    private const val GITHUB_API_BASE_URL = "https://api.github.com/"
+    private const val GITHUB_BASE_URL = AppConfig.GITHUB_BASE_URL
+    private const val GITHUB_API_BASE_URL = AppConfig.GITHUB_API_BASE_URL
 
     private val retrofitMap by lazy {
         mutableMapOf<String, Retrofit>()

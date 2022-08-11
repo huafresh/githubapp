@@ -25,7 +25,7 @@ class HomeViewModel : BaseViewModel() {
 
     fun initData(context: Context) {
         launchMain({
-            _title.value = context.getString(R.string.home)
+            _title.value = context.getString(R.string.home_title)
         }, {
             LogUtil.e(TAG, "initData", it)
         })

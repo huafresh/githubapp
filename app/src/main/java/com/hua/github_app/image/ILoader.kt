@@ -8,7 +8,8 @@ package com.hua.github_app.image
  */
 interface ILoader {
     /**
-     * Use the data in [options] to load the image, such as [RequestOptions.url] and [RequestOptions.errorResId].
+     * Use the data in [options] to load the image, such as [RequestOptions.url]
+     * and [RequestOptions.errorResId].
      * The loader implementer needs to distribute the loaded results to the [target].
      */
     fun load(options: RequestOptions, target: ITarget)
