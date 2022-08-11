@@ -4,5 +4,7 @@
     <string name="login_first">you need to login before using this app</string>
     <string name="login_with_browser">login with browser</string>
     <string name="please_waiting" tools:ignore="TypographyEllipsis">please waiting...</string>
+    <string name="search">search</string>
+    <string name="home">home</string>
 
 </resources>

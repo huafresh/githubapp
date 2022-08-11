@@ -42,6 +42,7 @@ class LoginActivity : BaseActivity() {
         binding.lifecycleOwner = this
         binding.vm = loginVm
         observeShowingDialog(loginVm)
+        supportActionBar?.title = "login"
     }
 
     override fun onNewIntent(intent: Intent?) {

@@ -2,6 +2,8 @@ package com.hua.github_app.base
 
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.ViewDataBinding
+import androidx.viewbinding.ViewBinding
 import com.hua.github_app.R
 
 /**

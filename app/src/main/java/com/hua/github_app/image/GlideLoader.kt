@@ -24,7 +24,11 @@ internal class GlideLoader : ILoader {
 
         // ... add more options in the future
 
-        requestBuilder.into(GlideTarget(target))
+        if (target is ImageViewTarget) {
+            requestBuilder.into(target.imageView)
+        } else {
+            requestBuilder.into(GlideTarget(target))
+        }
     }
 
 }

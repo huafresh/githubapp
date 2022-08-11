@@ -23,7 +23,8 @@
 
         <activity
             android:name=".ui.activity.HomeActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Githubapp.NoActionBar" />
 
         <activity
             android:name=".ui.activity.LoginActivity"
@@ -40,6 +41,10 @@
                     android:scheme="openhub" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:theme="@style/Theme.Githubapp.NoActionBar" />
 
     </application>
 
