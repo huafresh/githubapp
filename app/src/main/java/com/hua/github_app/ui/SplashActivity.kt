@@ -20,7 +20,8 @@ class SplashActivity : BaseActivity() {
         if (LoginManager.token != null) {
             HomeActivity.jumpHome(this)
         } else {
-            SearchActivity.jumpSearch(this)
+//            SearchActivity.jumpSearch(this)
+            LoginActivity.jumpLogin(this)
         }
         finish()
     }

@@ -28,6 +28,7 @@ class SearchViewModel : BaseViewModel() {
     fun initData(context: Context) {
         launchMain({
             _title.value = ""
+            _inputMode.value = true
         }, {
             LogUtil.e(TAG, "initData", it)
         })

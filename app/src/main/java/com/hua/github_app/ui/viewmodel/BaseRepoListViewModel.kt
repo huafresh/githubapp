@@ -19,7 +19,7 @@ abstract class BaseRepoListViewModel : BaseViewModel() {
         private const val TAG = "BaseRepoListViewModel"
     }
 
-    protected val _isRefreshing = MutableLiveData<Boolean>()
+    private val _isRefreshing = MutableLiveData<Boolean>()
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
     private var page = 0

@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -44,11 +43,30 @@ class SearchActivity : BaseActivity(), IRepoListHost {
         super.onCreate(savedInstanceState)
         val binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupToolbar(binding.toolbar)
+        initViews(binding)
+        initData()
+        observes(binding)
+    }
+
+    private fun initData() {
+        searchVm.initData(this)
+    }
+
+    private fun setupRepoListFragment() {
         supportFragmentManager.beginTransaction()
             .add(R.id.fl_container, RepoListFragment())
             .commit()
-        searchVm.initData(this)
+    }
+
+    private fun observes(binding: ActivitySearchBinding) {
+        searchVm.title.observe(this) { title ->
+            binding.toolbar.title = title
+        }
+    }
+
+    private fun initViews(binding: ActivitySearchBinding) {
+        setupRepoListFragment()
+        setupToolbar(binding.toolbar)
     }
 
     private fun setupToolbar(toolBar: Toolbar) {
@@ -59,9 +77,6 @@ class SearchActivity : BaseActivity(), IRepoListHost {
         }
         toolBar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolBar.setNavigationOnClickListener { finish() }
-        searchVm.title.observe(this) { title ->
-            toolBar.title = title
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -93,6 +108,8 @@ class SearchActivity : BaseActivity(), IRepoListHost {
             if (!inputMode) {
                 searchView.setQuery("", false)
                 searchView.isIconified = true
+            } else {
+                searchView.isIconified = false
             }
         }
     }

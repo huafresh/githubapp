@@ -17,8 +17,8 @@ abstract class BaseActivity : AppCompatActivity() {
         ProgressDialogHelper(this)
     }
 
-    protected fun observeShowingDialog(vm: BaseViewModel) {
-        progressDialogHelper.observeShowingDialog(vm)
+    protected fun BaseViewModel.observeShowingDialog() {
+        progressDialogHelper.observeShowingDialog(this)
     }
 
     override fun onDestroy() {

@@ -42,10 +42,22 @@ class HomeActivity : BaseActivity(), IRepoListHost {
         )
         binding.lifecycleOwner = this
         binding.vm = homeVm
+        initViews()
+        initData()
+    }
+
+    private fun initData() {
+        homeVm.initData(this)
+    }
+
+    private fun initViews() {
+        setupRepoListFragment()
+    }
+
+    private fun setupRepoListFragment() {
         supportFragmentManager.beginTransaction()
             .add(R.id.fl_container, RepoListFragment())
             .commit()
-        homeVm.initData(this)
     }
 
     override fun getRepoListViewModel(): BaseRepoListViewModel {

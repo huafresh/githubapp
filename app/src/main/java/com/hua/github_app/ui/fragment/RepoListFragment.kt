@@ -28,19 +28,34 @@ class RepoListFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        checkActivity()
-        view?.let {
-            val binding = FragmentListBinding.bind(it)
-            setupRecyclerView(binding.recyclerView)
-            setupSwipeRefreshLayout(binding.swipeRefreshLayout)
-        }
-        observeShowingDialog(vm)
+        checkHostActivity()
+        initViews()
+        initData()
+        observes()
+    }
+
+    private fun initData() {
         vm.initData()
     }
 
-    private fun checkActivity() {
+    private fun observes() {
+        observeShowingDialog(vm)
+    }
+
+    private fun initViews() {
+        val binding = view?.let { FragmentListBinding.bind(it) }
+        if (binding != null) {
+            setupRecyclerView(binding.recyclerView)
+            setupSwipeRefreshLayout(binding.swipeRefreshLayout)
+        }
+    }
+
+    private fun checkHostActivity() {
         if (activity !is IRepoListHost) {
-            throw RuntimeException("The host of this fragment must implement the iRepoListHost interface")
+            throw RuntimeException(
+                "The host of this fragment must implement " +
+                        "the iRepoListHost interface"
+            )
         }
     }
 

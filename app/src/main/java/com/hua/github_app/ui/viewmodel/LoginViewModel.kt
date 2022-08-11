@@ -9,6 +9,7 @@ import com.hua.github_app.http.AppRetrofit
 import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.AppConfig
 import com.hua.github_app.ui.activity.HomeActivity
+import com.hua.github_app.ui.activity.LoginActivity
 import com.hua.github_app.ui.login.LoginManager
 import com.hua.github_app.utils.LogUtil
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +51,17 @@ class LoginViewModel : BaseViewModel() {
                 "&state=" + randomState
     }
 
-    fun startGetAccessToken(context: Context, code: String?, state: String?) {
+    fun handleNewIntent(context: Context, intent: Intent?) {
+        LogUtil.i(TAG, "onNewIntent: ${intent?.data}")
+        val uri = intent?.data
+        if (uri != null) {
+            val code = uri.getQueryParameter("code")
+            val state = uri.getQueryParameter("state")
+            startGetAccessToken(context, code, state)
+        }
+    }
+
+    private fun startGetAccessToken(context: Context, code: String?, state: String?) {
         if (code == null || state == null) return
         launchMain({
             val oAuthToken = withContext(Dispatchers.IO) {

@@ -41,19 +41,25 @@ class LoginActivity : BaseActivity() {
         )
         binding.lifecycleOwner = this
         binding.vm = loginVm
-        observeShowingDialog(loginVm)
+        initViews()
+        observes(binding)
+    }
+
+    private fun observes(binding: ActivityLoginBinding) {
+        loginVm.observeShowingDialog()
+    }
+
+    private fun initViews() {
+        setupActionBar()
+    }
+
+    private fun setupActionBar() {
         supportActionBar?.title = "login"
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        LogUtil.i(TAG, "onNewIntent: ${intent?.data}")
-        val uri = intent?.data
-        if (uri != null) {
-            val code = uri.getQueryParameter("code")
-            val state = uri.getQueryParameter("state")
-            loginVm.startGetAccessToken(this, code, state)
-        }
+        loginVm.handleNewIntent(this, intent)
     }
 
 }
