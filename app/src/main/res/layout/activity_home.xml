@@ -20,11 +20,15 @@
             android:layout_height="?actionBarSize"
             android:background="@color/primary_color">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_avatar"
-                android:layout_width="?actionBarSize"
-                android:src="@mipmap/logo_big"
-                android:layout_height="match_parent" />
+                imageError='@{@drawable/ic_avatar_default}'
+                imagePlaceholder='@{@drawable/ic_avatar_default}'
+                imageUrl="@{vm.avatarUrl}"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:onClick="@{vm::onClickAvatar}"
+                android:src="@drawable/logo_big" />
 
             <TextView
                 android:layout_width="wrap_content"

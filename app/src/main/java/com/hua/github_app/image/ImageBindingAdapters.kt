@@ -11,10 +11,10 @@ import androidx.databinding.BindingAdapter
  */
 object ImageBindingAdapters {
 
-    @BindingAdapter("imageUrl", "error", "placeholder")
+    @BindingAdapter("imageUrl", "imageError", "imagePlaceholder")
     @JvmStatic
     fun loadImage(
-        view: ImageView, url: String,
+        view: ImageView, url: String?,
         error: Drawable?, placeholder: Drawable?
     ) {
         ImageLoader.with(view)

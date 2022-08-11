@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="imageUrl" format="string"/>
+    <attr name="imageError" format="reference"/>
+    <attr name="imagePlaceholder" format="reference"/>
+</resources>

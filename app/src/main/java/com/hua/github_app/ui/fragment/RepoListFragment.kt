@@ -20,6 +20,14 @@ import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
  * @author hua
  */
 class RepoListFragment : BaseFragment() {
+    companion object {
+        private const val TAG = "RepoListFragment"
+
+        fun newInstance(): RepoListFragment {
+            return RepoListFragment()
+        }
+    }
+
     private val vm: BaseRepoListViewModel by lazy {
         (activity as IRepoListHost).getRepoListViewModel()
     }

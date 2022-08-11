@@ -56,7 +56,7 @@ class HomeActivity : BaseActivity(), IRepoListHost {
 
     private fun setupRepoListFragment() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.fl_container, RepoListFragment())
+            .add(R.id.fl_container, RepoListFragment.newInstance())
             .commit()
     }
 

@@ -20,7 +20,10 @@ class SplashActivity : BaseActivity() {
         } else {
 //            SearchActivity.jumpSearch(this)
             LoginActivity.jumpLogin(this)
+//            HomeActivity.jumpHome(this)
+
         }
+
         finish()
     }
 

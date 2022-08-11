@@ -6,8 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseViewModel
+import com.hua.github_app.http.AppRetrofit
 import com.hua.github_app.ui.activity.SearchActivity
 import com.hua.github_app.utils.LogUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Created on 2022/8/11.
@@ -23,9 +26,16 @@ class HomeViewModel : BaseViewModel() {
     private val _title = MutableLiveData<String>()
     val title: LiveData<String> = _title
 
+    private val _avatarUrl = MutableLiveData<String>()
+    val avatarUrl: LiveData<String> = _avatarUrl
+
     fun initData(context: Context) {
         launchMain({
             _title.value = context.getString(R.string.home_title)
+            val url = withContext(Dispatchers.IO) {
+                AppRetrofit.getUserService().getPersonInfo().avatarUrl ?: ""
+            }
+            _avatarUrl.value = url
         }, {
             LogUtil.e(TAG, "initData", it)
         })
@@ -39,4 +49,11 @@ class HomeViewModel : BaseViewModel() {
         })
     }
 
+    fun onClickAvatar(v: View) {
+        launchMain({
+
+        }, {
+            LogUtil.e(TAG, "onClickAvatar", it)
+        })
+    }
 }
