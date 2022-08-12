@@ -1,5 +1,6 @@
 package com.hua.github_app.ui.viewmodel
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -7,13 +8,19 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.AppConfig
 import com.hua.github_app.R
 import com.hua.github_app.ui.activity.HomeActivity
 import com.hua.github_app.login.LoginManager
 import com.hua.github_app.utils.LogUtil
+import com.hua.github_app.utils.PermissionUtil
+import com.permissionx.guolindev.PermissionX
+import com.permissionx.guolindev.callback.RequestCallback
 import java.util.*
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 
 /**
@@ -28,6 +35,11 @@ class LoginViewModel : BaseViewModel() {
 
     fun onClickLoginWithBrowser(v: View) {
         launchMain({
+            val granted = PermissionUtil.checkStoragePermission(v.context as FragmentActivity)
+            if (!granted) {
+                return@launchMain
+            }
+
             /**
              * Jump to browser authorization. After the authorization is successful,
              * it will be called back through scheme: openhub://login
