@@ -9,6 +9,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseFragment
 import com.hua.github_app.databinding.FragmentListBinding
+import com.hua.github_app.ext.isScrollToEnd
 import com.hua.github_app.loadview.LoadViewHelper
 import com.hua.github_app.ui.adapter.RepoListAdapter
 import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
@@ -76,7 +77,6 @@ class RepoListFragment : BaseFragment() {
         }
         val adapter = binding.recyclerView.adapter as RepoListAdapter
         vm.repositoryList.observe(viewLifecycleOwner) { dataList ->
-            LogUtil.i("@@@hua", "observes: 数据机变更, size=${dataList.size}")
             adapter.data = dataList.toMutableList()
             adapter.notifyDataSetChanged()
         }
@@ -100,6 +100,14 @@ class RepoListFragment : BaseFragment() {
         val adapter = RepoListAdapter()
         rv.adapter = adapter
         loadViewHelper = LoadViewHelper.wrap(rv)
+        rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE &&
+                        rv.isScrollToEnd()) {
+                    vm?.loadMoreData()
+                }
+            }
+        })
     }
 
     private fun setupSwipeRefreshLayout(refreshLayout: SwipeRefreshLayout) {

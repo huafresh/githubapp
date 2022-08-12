@@ -23,6 +23,7 @@ abstract class BaseRepoListViewModel : BaseViewModel() {
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
     private var page = 0
+    private var loadMoreRunning = false
 
     private val _repositoryList = MutableLiveData<List<Repository>>()
     val repositoryList: LiveData<List<Repository>> = _repositoryList
@@ -59,16 +60,24 @@ abstract class BaseRepoListViewModel : BaseViewModel() {
 
     fun loadMoreData() {
         launchMain({
+            if (loadMoreRunning) {
+                return@launchMain
+            }
+            loadMoreRunning = true
             val appendList = withContext(Dispatchers.IO) {
-                fetchRepoListWithPage(++page)
+                fetchRepoListWithPage(page + 1)
             }
             val newList = mutableListOf<Repository>().apply {
                 addAll(_repositoryList.value ?: emptyList())
                 addAll(appendList)
             }
             _loadMoreDataList.value = newList
+            loadMoreRunning = false
+            LogUtil.i(TAG, "loadMoreData, page=${page + 1}")
+            page++
         }, {
             LogUtil.e(TAG, "loadMoreData", it)
+            loadMoreRunning = false
         })
     }
 
