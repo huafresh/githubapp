@@ -1,8 +1,9 @@
 package com.hua.github_app
 
 import android.app.Application
+import android.content.Context
+import androidx.room.Room
 import com.hua.github_app.loadview.BaseLayoutProvider
-import com.hua.github_app.loadview.ILayoutProvider
 import com.hua.github_app.loadview.LoadViewHelper
 
 /**
@@ -10,19 +11,24 @@ import com.hua.github_app.loadview.LoadViewHelper
  *
  * @author hua
  */
-class App : Application() {
+class GithubApp : Application() {
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+    }
+
     override fun onCreate() {
         super.onCreate()
         setupLoadViewHelper()
     }
 
-    private fun setupLoadViewHelper(){
-        LoadViewHelper.registerErrorLayout(object :BaseLayoutProvider(){
+    private fun setupLoadViewHelper() {
+        LoadViewHelper.registerErrorLayout(object : BaseLayoutProvider() {
             override fun layoutId(): Int {
                 return R.layout.load_error
             }
         })
-        LoadViewHelper.registerEmptyLayout(object :BaseLayoutProvider(){
+        LoadViewHelper.registerEmptyLayout(object : BaseLayoutProvider() {
             override fun layoutId(): Int {
                 return R.layout.load_empty
             }

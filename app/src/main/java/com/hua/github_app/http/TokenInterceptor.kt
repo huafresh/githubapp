@@ -12,7 +12,7 @@ import okhttp3.Response
 class TokenInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
-        val token = LoginManager.token
+        val token = LoginManager.accessToken
         if (token != null) {
             request = request.newBuilder()
                 .addHeader("Authorization", "token $token")

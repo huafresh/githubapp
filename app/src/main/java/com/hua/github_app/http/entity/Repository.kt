@@ -21,7 +21,7 @@ class Repository {
     var htmlUrl: String? = null
     var description: String? = null
     var language: String? = null
-    var owner: UserInfo? = null
+    var owner: User? = null
 
     @SerializedName("default_branch")
     var defaultBranch: String? = null

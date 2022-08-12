@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.http.AppRetrofit
+import com.hua.github_app.login.LoginManager
 import com.hua.github_app.ui.activity.SearchActivity
 import com.hua.github_app.utils.LogUtil
 import kotlinx.coroutines.Dispatchers
@@ -33,10 +34,7 @@ class HomeViewModel : BaseViewModel() {
     fun initData(context: Context) {
         launchMain({
             _title.value = context.getString(R.string.home_title)
-            val url = withContext(Dispatchers.IO) {
-                AppRetrofit.getUserService().getPersonInfo().avatarUrl ?: ""
-            }
-            _avatarUrl.value = url
+            _avatarUrl.value = LoginManager.getUser()?.avatarUrl
         }, {
             LogUtil.e(TAG, "initData", it)
         })

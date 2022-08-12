@@ -1,18 +1,18 @@
 package com.hua.github_app.ui.viewmodel
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
 import android.view.View
-import com.hua.github_app.http.AppRetrofit
+import android.widget.Toast
 import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.AppConfig
+import com.hua.github_app.R
 import com.hua.github_app.ui.activity.HomeActivity
 import com.hua.github_app.login.LoginManager
 import com.hua.github_app.utils.LogUtil
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.util.*
 
 
@@ -50,35 +50,42 @@ class LoginViewModel : BaseViewModel() {
                 "&state=" + randomState
     }
 
-    fun handleNewIntent(context: Context, intent: Intent?) {
-        LogUtil.i(TAG, "onNewIntent: ${intent?.data}")
-        val uri = intent?.data
-        if (uri != null) {
-            val code = uri.getQueryParameter("code")
-            val state = uri.getQueryParameter("state")
-            startGetAccessToken(context, code, state)
-        }
+    fun handleNewIntent(activity: Activity, intent: Intent?) {
+        launchMain({
+            LogUtil.i(TAG, "onNewIntent: ${intent?.data}")
+            val uri = intent?.data
+            if (uri != null) {
+                val code = uri.getQueryParameter("code")
+                val state = uri.getQueryParameter("state")
+                if (code == null || state == null) {
+                    LogUtil.e(TAG, "login failed: code or state is empty")
+                    activity.toastLoginFailed()
+                    dismissProgressDialog()
+                    return@launchMain
+                }
+                val ret = LoginManager.handleGetCodeState(activity, code, state)
+                if (!ret) {
+                    LogUtil.e(TAG, "login failed: handle code state failed")
+                    activity.toastLoginFailed()
+                    dismissProgressDialog()
+                    return@launchMain
+                }
+                dismissProgressDialog()
+                HomeActivity.jumpHome(activity)
+                activity.finish()
+            }
+        }, {
+            LogUtil.e(TAG, "handleNewIntent", it)
+            dismissProgressDialog()
+            activity.toastLoginFailed()
+        })
     }
 
-    private fun startGetAccessToken(context: Context, code: String?, state: String?) {
-        if (code == null || state == null) return
-        launchMain({
-            val oAuthToken = withContext(Dispatchers.IO) {
-                AppRetrofit.getLoginService()
-                    .getAccessToken(
-                        AppConfig.OPENHUB_CLIENT_ID,
-                        AppConfig.OPENHUB_CLIENT_SECRET,
-                        code,
-                        state
-                    )
-            }
-            LogUtil.i(TAG, "get oAuthToken=$oAuthToken")
-            LoginManager.token = oAuthToken.accessToken
-            dismissProgressDialog()
-            HomeActivity.jumpHome(context)
-        }, {
-            LogUtil.e(TAG, "getToken: ", it)
-        })
+    private fun Context.toastLoginFailed() {
+        Toast.makeText(
+            this, this.getString(R.string.login_failed),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 }

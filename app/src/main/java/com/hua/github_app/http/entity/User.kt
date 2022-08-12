@@ -8,7 +8,7 @@ import java.util.*
  *
  * @author hua
  */
-class UserInfo {
+class User {
     enum class UserType {
         User, Organization
     }
