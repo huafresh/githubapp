@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -37,8 +38,8 @@ class SearchActivity : BaseActivity(), IRepoListHost {
         }
     }
 
-    private val searchVm = SearchViewModel()
-    private val searchRepoVm = SearchRepoListViewModel()
+    private val searchVm: SearchViewModel by viewModels()
+    private val searchRepoVm: SearchRepoListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

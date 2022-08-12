@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseActivity
@@ -31,8 +32,7 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    //    private val loginVm: LoginViewModel by viewModels()
-    private val loginVm: LoginViewModel = LoginViewModel()
+        private val loginVm: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil.setContentView
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseActivity
@@ -32,8 +33,8 @@ class HomeActivity : BaseActivity(), IRepoListHost {
         }
     }
 
-    private val homeVm = HomeViewModel()
-    private val myRepoListVm = MyRepoListViewModel()
+    private val homeVm: HomeViewModel by viewModels()
+    private val myRepoListVm: MyRepoListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
