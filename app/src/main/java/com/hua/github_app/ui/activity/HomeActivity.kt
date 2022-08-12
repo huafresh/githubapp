@@ -19,7 +19,7 @@ import com.hua.github_app.ui.viewmodel.MyRepoListViewModel
  *
  * @author hua
  */
-class HomeActivity : BaseActivity(), IRepoListHost {
+class HomeActivity : BaseActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
@@ -57,11 +57,7 @@ class HomeActivity : BaseActivity(), IRepoListHost {
 
     private fun setupRepoListFragment() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.fl_container, RepoListFragment.newInstance())
+            .add(R.id.fl_container, RepoListFragment.newInstance(myRepoListVm))
             .commit()
-    }
-
-    override fun getRepoListViewModel(): BaseRepoListViewModel {
-        return myRepoListVm
     }
 }

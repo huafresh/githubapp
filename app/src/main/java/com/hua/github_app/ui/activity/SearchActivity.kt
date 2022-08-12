@@ -24,7 +24,7 @@ import com.hua.github_app.utils.LogUtil
  *
  * @author hua
  */
-class SearchActivity : BaseActivity(), IRepoListHost {
+class SearchActivity : BaseActivity() {
 
     companion object {
         private const val TAG = "SearchActivity"
@@ -56,7 +56,7 @@ class SearchActivity : BaseActivity(), IRepoListHost {
 
     private fun setupRepoListFragment() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.fl_container, RepoListFragment.newInstance())
+            .add(R.id.fl_container, RepoListFragment.newInstance(searchRepoVm))
             .commit()
     }
 
@@ -105,9 +105,5 @@ class SearchActivity : BaseActivity(), IRepoListHost {
             }
         })
         searchView.isIconified = false
-    }
-
-    override fun getRepoListViewModel(): BaseRepoListViewModel {
-        return searchRepoVm
     }
 }
