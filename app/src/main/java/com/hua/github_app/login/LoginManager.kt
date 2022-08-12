@@ -2,10 +2,9 @@ package com.hua.github_app.login
 
 import android.content.Context
 import com.hua.github_app.AppConfig
-import com.hua.github_app.AppDatabase
+import com.hua.github_app.db.AppDatabase
+import com.hua.github_app.db.user.LocalUser
 import com.hua.github_app.http.AppRetrofit
-import com.hua.github_app.http.entity.OauthToken
-import com.hua.github_app.http.entity.User
 import com.hua.github_app.utils.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

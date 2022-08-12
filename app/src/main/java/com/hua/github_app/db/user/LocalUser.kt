@@ -1,4 +1,4 @@
-package com.hua.github_app.login
+package com.hua.github_app.db.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

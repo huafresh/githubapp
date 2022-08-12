@@ -37,10 +37,7 @@ class SplashActivity : BaseActivity() {
                     finish()
                 }
             } else {
-//            SearchActivity.jumpSearch(this@SplashActivity)
                 LoginActivity.jumpLogin(this@SplashActivity)
-//            HomeActivity.jumpHome(this@SplashActivity)
-
             }
             finish()
         }

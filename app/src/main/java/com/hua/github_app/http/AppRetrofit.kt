@@ -1,11 +1,11 @@
 package com.hua.github_app.http
 
-import androidx.annotation.NonNull
 import com.hua.github_app.AppConfig
 import com.hua.github_app.http.api.LoginService
 import com.hua.github_app.http.api.RepoService
 import com.hua.github_app.http.api.SearchService
 import com.hua.github_app.http.api.UserService
+import com.hua.github_app.http.interceptor.TokenInterceptor
 import com.hua.github_app.utils.LogUtil
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

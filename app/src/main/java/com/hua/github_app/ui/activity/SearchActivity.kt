@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseActivity
 import com.hua.github_app.databinding.ActivitySearchBinding
-import com.hua.github_app.loadview.LoadViewHelper
 import com.hua.github_app.ui.fragment.RepoListFragment
 import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
 import com.hua.github_app.ui.viewmodel.SearchRepoListViewModel

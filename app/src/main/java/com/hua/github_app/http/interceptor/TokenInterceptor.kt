@@ -1,4 +1,4 @@
-package com.hua.github_app.http
+package com.hua.github_app.http.interceptor
 
 import com.hua.github_app.login.LoginManager
 import okhttp3.Interceptor

@@ -1,11 +1,11 @@
-package com.hua.github_app
+package com.hua.github_app.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.hua.github_app.login.LocalUser
-import com.hua.github_app.login.UserDao
+import com.hua.github_app.db.user.LocalUser
+import com.hua.github_app.db.user.UserDao
 
 /**
  * Created on 2022/8/11.
