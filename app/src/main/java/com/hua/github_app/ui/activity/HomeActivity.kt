@@ -34,7 +34,6 @@ class HomeActivity : BaseActivity() {
     }
 
     private val homeVm: HomeViewModel by viewModels()
-    private val myRepoListVm: MyRepoListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +56,10 @@ class HomeActivity : BaseActivity() {
 
     private fun setupRepoListFragment() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.fl_container, RepoListFragment.newInstance(myRepoListVm))
+            .add(
+                R.id.fl_container,
+                RepoListFragment.newInstance(RepoListFragment.REPO_TYPE_MY)
+            )
             .commit()
     }
 }
