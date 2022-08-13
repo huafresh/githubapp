@@ -31,6 +31,9 @@ class HomeViewModel : BaseViewModel() {
     private val _avatarUrl = MutableLiveData<String>()
     val avatarUrl: LiveData<String> = _avatarUrl
 
+    private val _drawerOpen = MutableLiveData<Boolean>()
+    val drawerOpen: LiveData<Boolean> = _drawerOpen
+
     fun initData(context: Context) {
         launchMain({
             _title.value = context.getString(R.string.home_title)
@@ -57,6 +60,14 @@ class HomeViewModel : BaseViewModel() {
             ).show()
         }, {
             LogUtil.e(TAG, "onClickAvatar", it)
+        })
+    }
+
+    fun onClickDrawerEntrance(v: View) {
+        launchMain({
+            _drawerOpen.value = true
+        }, {
+            LogUtil.e(TAG, "onClickDrawerEntrance", it)
         })
     }
 }

@@ -27,7 +27,7 @@ class SplashActivity : BaseActivity() {
             if (LoginManager.isLogin()) {
                 val b = PermissionUtil.checkStoragePermission(this@SplashActivity)
                 if (b) {
-                    HomeActivity.jumpHome(this@SplashActivity)
+                    HomeActivity.show(this@SplashActivity)
                 } else {
                     Toast.makeText(
                         this@SplashActivity,

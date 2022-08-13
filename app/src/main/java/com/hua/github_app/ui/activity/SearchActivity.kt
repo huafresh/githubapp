@@ -47,11 +47,7 @@ class SearchActivity : BaseActivity() {
         val binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViews(binding)
-        initData()
         observes(binding)
-    }
-
-    private fun initData() {
         searchVm.initData(this)
     }
 

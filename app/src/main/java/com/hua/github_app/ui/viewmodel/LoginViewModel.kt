@@ -1,6 +1,5 @@
 package com.hua.github_app.ui.viewmodel
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -16,11 +15,7 @@ import com.hua.github_app.ui.activity.HomeActivity
 import com.hua.github_app.login.LoginManager
 import com.hua.github_app.utils.LogUtil
 import com.hua.github_app.utils.PermissionUtil
-import com.permissionx.guolindev.PermissionX
-import com.permissionx.guolindev.callback.RequestCallback
 import java.util.*
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 
 /**
@@ -83,7 +78,7 @@ class LoginViewModel : BaseViewModel() {
                     return@launchMain
                 }
                 dismissProgressDialog()
-                HomeActivity.jumpHome(activity)
+                HomeActivity.show(activity)
                 activity.finish()
             }
         }, {
