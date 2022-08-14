@@ -1,5 +1,6 @@
 package com.hua.github_app.ui.viewmodel
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import androidx.lifecycle.LiveData
@@ -9,9 +10,11 @@ import com.hua.github_app.R
 import com.hua.github_app.http.AppRetrofit
 import com.hua.github_app.entity.User
 import com.hua.github_app.login.LoginManager
+import com.hua.github_app.ui.activity.LoginActivity
 import com.hua.github_app.ui.activity.SearchActivity
 import com.hua.github_app.utils.LogUtil
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 /**
@@ -31,7 +34,8 @@ class HomeViewModel : BaseViewModel() {
     private val _avatarUrl = MutableLiveData<String>()
     val avatarUrl: LiveData<String> = _avatarUrl
 
-    val openDrawer: OneshotLiveData<Boolean> = OneshotLiveData<Boolean>()
+    val openOrDrawer: OneshotLiveData<Boolean> = OneshotLiveData()
+    val showLogoutDialog = OneshotLiveData<Unit>()
 
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
@@ -71,17 +75,34 @@ class HomeViewModel : BaseViewModel() {
 
     fun onClickDrawerEntrance(v: View) {
         launchMain({
-            openDrawer.setValue(true)
+            openOrDrawer.setValue(true)
         }, {
             LogUtil.e(TAG, "onClickDrawerEntrance", it)
         })
     }
 
-    fun onclickLogout() {
+    fun onclickLogout(activity: Activity) {
         launchMain({
-
+            openOrDrawer.setValue(false)
+            delay(300)
+            showLogoutDialog.setValue(Unit)
         }, {
             LogUtil.e(TAG, "onclickLogout", it)
+        })
+    }
+
+    fun onClickLogoutDialogConfirm(activity: Activity) {
+        launchMain({
+            showProgressDialog()
+            // Pretend logout is a time-consuming operation
+            delay(2000)
+            LoginManager.logout(activity)
+            LoginActivity.show(activity)
+            activity.finish()
+            dismissProgressDialog()
+        }, {
+            LogUtil.e(TAG, "onClickLogoutDialogConfirm", it)
+            dismissProgressDialog()
         })
     }
 }

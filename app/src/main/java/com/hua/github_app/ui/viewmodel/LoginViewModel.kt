@@ -1,7 +1,6 @@
 package com.hua.github_app.ui.viewmodel
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
@@ -65,14 +64,14 @@ class LoginViewModel : BaseViewModel() {
                 val state = uri.getQueryParameter("state")
                 if (code == null || state == null) {
                     LogUtil.e(TAG, "login failed: code or state is empty")
-                    activity.toastLoginFailed()
+                    toastLoginFailed()
                     dismissProgressDialog()
                     return@launchMain
                 }
                 val ret = LoginManager.handleGetCodeState(activity, code, state)
                 if (!ret) {
                     LogUtil.e(TAG, "login failed: handle code state failed")
-                    activity.toastLoginFailed()
+                    toastLoginFailed()
                     dismissProgressDialog()
                     return@launchMain
                 }
@@ -83,11 +82,11 @@ class LoginViewModel : BaseViewModel() {
         }, {
             LogUtil.e(TAG, "handleNewIntent", it)
             dismissProgressDialog()
-            activity.toastLoginFailed()
+            toastLoginFailed()
         })
     }
 
-    private fun Context.toastLoginFailed() {
+    private fun toastLoginFailed() {
         ToastUtils.show(R.string.login_failed)
     }
 

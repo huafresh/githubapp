@@ -12,4 +12,6 @@
     <string name="profile_not_finish">profile page has not finish yet!!!</string>
     <string name="login_failed">login failed!!!</string>
     <string name="login_out">logout</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_yes">Yes</string>
 </resources>

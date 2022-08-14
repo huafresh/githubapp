@@ -5,14 +5,17 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hua.github_app.R
 import com.hua.github_app.databinding.ActivityHomeBinding
 import com.hua.github_app.ui.fragment.RepoListFragment
+import com.hua.github_app.ui.viewmodel.BaseViewModel
 import com.hua.github_app.ui.viewmodel.HomeViewModel
-import com.hua.github_app.utils.LogUtil
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
@@ -44,6 +47,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     }
 
     private val homeVm: HomeViewModel by viewModels()
+    private var logoutDialog: AlertDialog? = null
 
     override fun createBinding(): ActivityHomeBinding {
         val binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -63,10 +67,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     }
 
     override fun addObserves(binding: ActivityHomeBinding) {
-        homeVm.openDrawer.observe(this) { open ->
-            LogUtil.i("@@@hua", "addObserves: drawer open=$open, vm=${homeVm.hashCode()}")
+        homeVm.observeShowingDialog()
+        homeVm.openOrDrawer.observe(this) { open ->
             val slider = binding.slider
-            slider.drawerLayout?.openDrawer(slider)
+            if (open) {
+                slider.drawerLayout?.openDrawer(slider)
+            } else {
+                slider.drawerLayout?.closeDrawer(slider)
+            }
         }
         homeVm.user.observe(this) { user ->
             val headerView = binding.slider.headerView as? AccountHeaderView
@@ -77,6 +85,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
                 profileItem.icon = ImageHolder(user.avatarUrl ?: "")
             }
             headerView?.updateHeaderAndList()
+        }
+        homeVm.showLogoutDialog.observe(this) {
+            createLogoutDialogIfNeed()
+            logoutDialog?.show()
         }
     }
 
@@ -116,7 +128,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
         slider.onDrawerItemClickListener = { v, drawerItem, position ->
             if (position == LOGOUT_DRAWER_ITEM_ID) {
-                homeVm.onclickLogout()
+                homeVm.onclickLogout(this)
                 true
             } else false
         }
@@ -130,5 +142,27 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
                 .add(R.id.fl_container, repoFragment)
                 .commit()
         }
+    }
+
+    private fun createLogoutDialogIfNeed() {
+        if (logoutDialog == null) {
+            logoutDialog = MaterialAlertDialogBuilder(this)
+                .setTitle("warning")
+                .setMessage("Are you sure you logout?")
+                .setNegativeButton(getString(R.string.cancel)) { dialog, what ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton(getString(R.string.confirm_yes)) { dialog, what ->
+                    dialog.dismiss()
+                    homeVm.onClickLogoutDialogConfirm(this)
+                }
+                .create()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        logoutDialog?.dismiss()
+        logoutDialog = null
     }
 }
