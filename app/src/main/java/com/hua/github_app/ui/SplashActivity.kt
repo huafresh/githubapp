@@ -1,6 +1,8 @@
 package com.hua.github_app.ui
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.ViewBinding
 import com.hjq.toast.ToastUtils
 import com.hua.github_app.ui.activity.BaseActivity
 import com.hua.github_app.ui.activity.HomeActivity
@@ -17,7 +19,7 @@ import kotlinx.coroutines.launch
  *
  * @author hua
  */
-class SplashActivity : BaseActivity() {
+class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,5 +41,4 @@ class SplashActivity : BaseActivity() {
             finish()
         }
     }
-
 }

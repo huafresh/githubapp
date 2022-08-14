@@ -29,7 +29,7 @@ import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
  *
  * @author hua
  */
-class HomeActivity : BaseActivity() {
+class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     companion object {
         private const val TAG = "MainActivity"
@@ -46,19 +46,24 @@ class HomeActivity : BaseActivity() {
 
     private val homeVm: HomeViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = setContentView<ActivityHomeBinding>(
-            this, R.layout.activity_home
-        )
+    override fun initBinding(): ActivityHomeBinding {
+        val binding = ActivityHomeBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.vm = homeVm
-        initViews(binding)
-        observers(binding)
+        return binding
+    }
+
+    override fun initData() {
         homeVm.initData(this)
     }
 
-    private fun observers(binding: ActivityHomeBinding) {
+    override fun initViews(binding: ActivityHomeBinding) {
+        setupToolbar(binding.toolbar)
+        setupRepoListFragment()
+        setupDrawerSlider(binding.slider)
+    }
+
+    override fun addObserves(binding: ActivityHomeBinding) {
         homeVm.drawerOpen.observe(this) { open ->
             val slider = binding.slider
             if (open) {
@@ -77,12 +82,6 @@ class HomeActivity : BaseActivity() {
             }
             headerView?.updateHeaderAndList()
         }
-    }
-
-    private fun initViews(binding: ActivityHomeBinding) {
-        setupToolbar(binding.toolbar)
-        setupRepoListFragment()
-        setupDrawerSlider(binding.slider)
     }
 
     private fun setupToolbar(toolbar: Toolbar) {

@@ -16,7 +16,7 @@ import com.hua.github_app.ui.viewmodel.LoginViewModel
  *
  * @author hua
  */
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     companion object {
         private const val TAG = "LoginActivity"
@@ -30,25 +30,24 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-        private val loginVm: LoginViewModel by viewModels()
+    private val loginVm: LoginViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
-            this, R.layout.activity_login
-        )
+    override fun initBinding(): ActivityLoginBinding {
+        val binding = ActivityLoginBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.vm = loginVm
-        initViews()
-        observes(binding)
+        return binding
     }
 
-    private fun observes(binding: ActivityLoginBinding) {
-        loginVm.observeShowingDialog()
+    override fun initData() {
     }
 
-    private fun initViews() {
+    override fun initViews(binding: ActivityLoginBinding) {
         setupActionBar()
+    }
+
+    override fun addObserves(binding: ActivityLoginBinding) {
+        loginVm.observeShowingDialog()
     }
 
     private fun setupActionBar() {

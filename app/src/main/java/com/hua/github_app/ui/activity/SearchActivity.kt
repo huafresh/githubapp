@@ -20,7 +20,7 @@ import com.hua.github_app.ui.viewmodel.SearchViewModel
  *
  * @author hua
  */
-class SearchActivity : BaseActivity() {
+class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
     companion object {
         private const val TAG = "SearchActivity"
@@ -39,30 +39,29 @@ class SearchActivity : BaseActivity() {
         RepoListFragment.newInstance(RepoListFragment.REPO_TYPE_SEARCH)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = ActivitySearchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        initViews(binding)
-        observes(binding)
+    override fun initBinding(): ActivitySearchBinding {
+        return ActivitySearchBinding.inflate(layoutInflater)
+    }
+
+    override fun initData() {
         searchVm.initData(this)
+    }
+
+    override fun initViews(binding: ActivitySearchBinding) {
+        setupRepoListFragment()
+        setupToolbar(binding.toolbar)
+    }
+
+    override fun addObserves(binding: ActivitySearchBinding) {
+        searchVm.title.observe(this) { title ->
+            binding.toolbar.title = title
+        }
     }
 
     private fun setupRepoListFragment() {
         supportFragmentManager.beginTransaction()
             .add(R.id.fl_container, repoListFragment)
             .commit()
-    }
-
-    private fun observes(binding: ActivitySearchBinding) {
-        searchVm.title.observe(this) { title ->
-            binding.toolbar.title = title
-        }
-    }
-
-    private fun initViews(binding: ActivitySearchBinding) {
-        setupRepoListFragment()
-        setupToolbar(binding.toolbar)
     }
 
     private fun setupToolbar(toolBar: Toolbar) {
@@ -101,4 +100,6 @@ class SearchActivity : BaseActivity() {
         })
         searchView.isIconified = false
     }
+
+
 }
