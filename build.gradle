@@ -1,8 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from: "$rootDir/config.gradle"
 
 buildscript {
-    ext.kotlin_version = '1.4.20'
+    apply from: "$rootDir/config.gradle"
     repositories {
         jcenter()
         google()
@@ -14,6 +13,7 @@ buildscript {
 }
 
 allprojects {
+    apply from: "$rootDir/config.gradle"
     repositories {
         jcenter()
         google()
