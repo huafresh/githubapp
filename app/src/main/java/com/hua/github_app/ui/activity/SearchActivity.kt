@@ -28,7 +28,7 @@ class SearchActivity : BaseActivity() {
     companion object {
         private const val TAG = "SearchActivity"
 
-        fun jumpSearch(context: Context) {
+        fun show(context: Context) {
             val intent = Intent(context, SearchActivity::class.java)
             if (context !is Activity) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

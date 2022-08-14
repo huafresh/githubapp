@@ -3,9 +3,11 @@ package com.hua.github_app.ui.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil.setContentView
@@ -13,13 +15,16 @@ import com.hua.github_app.R
 import com.hua.github_app.base.BaseActivity
 import com.hua.github_app.databinding.ActivityHomeBinding
 import com.hua.github_app.ui.fragment.RepoListFragment
-import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
 import com.hua.github_app.ui.viewmodel.HomeViewModel
-import com.hua.github_app.ui.viewmodel.MyRepoListViewModel
+import com.hua.github_app.utils.LogUtil
+import com.mikepenz.materialdrawer.holder.ImageHolder
+import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.iconRes
 import com.mikepenz.materialdrawer.model.interfaces.nameRes
+import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
 /**
@@ -31,6 +36,7 @@ class HomeActivity : BaseActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
+        private const val LOGOUT_DRAWER_ITEM_ID = 1
 
         fun show(context: Context) {
             val intent = Intent(context, HomeActivity::class.java)
@@ -64,12 +70,22 @@ class HomeActivity : BaseActivity() {
                 slider.drawerLayout?.closeDrawer(slider)
             }
         }
+        homeVm.user.observe(this) { user ->
+            val headerView = binding.slider.headerView as? AccountHeaderView
+            val profileItem = headerView?.profiles?.firstOrNull()
+            if (profileItem != null) {
+                profileItem.name = StringHolder(user.login)
+                profileItem.description = StringHolder(user.createdAt?.toString())
+                profileItem.icon = ImageHolder(user.avatarUrl ?: "")
+            }
+            headerView?.updateHeaderAndList()
+        }
     }
 
     private fun initViews(binding: ActivityHomeBinding) {
         setupToolbar(binding.toolbar)
         setupRepoListFragment()
-        setupSlider(binding.slider)
+        setupDrawerSlider(binding.slider)
     }
 
     private fun setupToolbar(toolbar: Toolbar) {
@@ -83,29 +99,35 @@ class HomeActivity : BaseActivity() {
         }
     }
 
-    private fun setupSlider(slider: MaterialDrawerSliderView) {
-        val item1 = PrimaryDrawerItem().apply {
-            nameRes = R.string.login_failed
-            identifier = 1
-        }
-        val item2 = SecondaryDrawerItem().apply {
-            nameRes = R.string.load_error_tips
-            identifier = 2
-        }
-        slider.itemAdapter.add(
-            item1,
-            DividerDrawerItem(),
-            item2,
-            SecondaryDrawerItem().apply {
-                nameRes = R.string.text_is_empty
-            }
+    @Suppress("UNUSED_ANONYMOUS_PARAMETER")
+    private fun setupDrawerSlider(slider: MaterialDrawerSliderView) {
+        val headerView = AccountHeaderView(this)
+        headerView.selectionListEnabled = false
+        headerView.background = AppCompatResources.getDrawable(
+            this@HomeActivity,
+            R.color.primary_color
         )
+        val profileItem = object : ProfileDrawerItem() {}
+        profileItem.textColor = ColorStateList.valueOf(getColor(R.color.title_color))
+        profileItem.iconRes = R.drawable.logo_big
+        profileItem.name = StringHolder("nickName")
+        profileItem.description = StringHolder("create time")
+        headerView.addProfiles(profileItem)
+        slider.headerView = headerView
+        val logoutItem = PrimaryDrawerItem().apply {
+            icon = ImageHolder(R.drawable.ic_logout)
+            nameRes = R.string.login_out
+            identifier = LOGOUT_DRAWER_ITEM_ID.toLong()
+            isSelectable = false
+        }
+        slider.itemAdapter.add(logoutItem, DividerDrawerItem())
 
         slider.onDrawerItemClickListener = { v, drawerItem, position ->
-            Toast.makeText(this, "pos=$position", Toast.LENGTH_SHORT).show()
-            false
+            if (position == LOGOUT_DRAWER_ITEM_ID) {
+                homeVm.onclickLogout()
+                true
+            } else false
         }
-
     }
 
     private fun setupRepoListFragment() {

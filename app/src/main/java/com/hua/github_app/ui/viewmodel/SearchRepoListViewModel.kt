@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
+import com.hjq.toast.ToastUtils
 import com.hua.github_app.R
 import com.hua.github_app.http.AppRetrofit
 import com.hua.github_app.http.entity.Repository
@@ -27,11 +28,7 @@ class SearchRepoListViewModel : BaseRepoListViewModel() {
     fun onQueryTextSubmit(context: Context, query: String?) {
         launchMain({
             if (query.isNullOrBlank()) {
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.text_is_empty),
-                    Toast.LENGTH_SHORT
-                ).show()
+                ToastUtils.show(R.string.text_is_empty)
                 return@launchMain
             }
             this@SearchRepoListViewModel.query = query

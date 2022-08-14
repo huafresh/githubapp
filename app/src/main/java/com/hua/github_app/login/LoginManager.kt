@@ -46,7 +46,7 @@ object LoginManager {
             val user = AppRetrofit.getUserService().getPersonInfo()
             val dbUser = LocalUser(
                 DB_ID, accessToken,
-                user.name, user.avatarUrl
+                user.login, user.avatarUrl
             )
             val ret = AppDatabase.get(context).userDao().insert(dbUser)
             localUser = dbUser

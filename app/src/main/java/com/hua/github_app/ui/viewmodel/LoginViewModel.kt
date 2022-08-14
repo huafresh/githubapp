@@ -8,6 +8,7 @@ import android.net.Uri
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import com.hjq.toast.ToastUtils
 import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.AppConfig
 import com.hua.github_app.R
@@ -89,10 +90,7 @@ class LoginViewModel : BaseViewModel() {
     }
 
     private fun Context.toastLoginFailed() {
-        Toast.makeText(
-            this, this.getString(R.string.login_failed),
-            Toast.LENGTH_SHORT
-        ).show()
+        ToastUtils.show(R.string.login_failed)
     }
 
 }

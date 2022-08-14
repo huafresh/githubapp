@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.hua.github_app.R
 import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.http.AppRetrofit
+import com.hua.github_app.http.entity.User
 import com.hua.github_app.login.LoginManager
 import com.hua.github_app.ui.activity.SearchActivity
 import com.hua.github_app.utils.LogUtil
@@ -34,10 +35,17 @@ class HomeViewModel : BaseViewModel() {
     private val _drawerOpen = MutableLiveData<Boolean>()
     val drawerOpen: LiveData<Boolean> = _drawerOpen
 
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User> = _user
+
     fun initData(context: Context) {
         launchMain({
             _title.value = context.getString(R.string.home_title)
-            _avatarUrl.value = LoginManager.getUser()?.avatarUrl
+            val user = LoginManager.getUser()
+            _avatarUrl.value = user?.avatarUrl
+            _user.value = withContext(Dispatchers.IO) {
+                AppRetrofit.getUserService().getPersonInfo()
+            }
         }, {
             LogUtil.e(TAG, "initData", it)
         })
@@ -45,7 +53,7 @@ class HomeViewModel : BaseViewModel() {
 
     fun onClickSearch(v: View) {
         launchMain({
-            SearchActivity.jumpSearch(v.context)
+            SearchActivity.show(v.context)
         }, {
             LogUtil.e(TAG, "onClickSearch", it)
         })
@@ -68,6 +76,14 @@ class HomeViewModel : BaseViewModel() {
             _drawerOpen.value = true
         }, {
             LogUtil.e(TAG, "onClickDrawerEntrance", it)
+        })
+    }
+
+    fun onclickLogout() {
+        launchMain({
+
+        }, {
+            LogUtil.e(TAG, "onclickLogout", it)
         })
     }
 }

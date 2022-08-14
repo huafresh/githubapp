@@ -23,7 +23,7 @@ class LoginActivity : BaseActivity() {
     companion object {
         private const val TAG = "LoginActivity"
 
-        fun jumpLogin(context: Context) {
+        fun show(context: Context) {
             val intent = Intent(context, LoginActivity::class.java)
             if (context !is Activity) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
