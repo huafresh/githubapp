@@ -2,27 +2,20 @@ package com.hua.github_app.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.android.material.snackbar.Snackbar
-import com.hjq.toast.ToastUtils
 import com.hua.github_app.R
 import com.hua.github_app.databinding.FragmentListBinding
-import com.hua.github_app.ext.hideSoftKeyboard
 import com.hua.github_app.ext.isScrollToEnd
-import com.hua.github_app.loadview.LoadViewHelper
+import com.hua.github_app.lib.loadview.LoadViewHelper
 import com.hua.github_app.ui.activity.SearchActivity
 import com.hua.github_app.ui.adapter.RepoListAdapter
 import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
 import com.hua.github_app.ui.viewmodel.MyRepoListViewModel
 import com.hua.github_app.ui.viewmodel.SearchRepoListViewModel
-import com.hua.github_app.utils.LogUtil
 
 /**
  * Created on 2022/8/10.

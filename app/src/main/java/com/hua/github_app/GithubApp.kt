@@ -8,8 +8,8 @@ import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
 import com.hjq.toast.ToastUtils
 import com.hua.github_app.image.ImageLoader
-import com.hua.github_app.loadview.BaseLayoutProvider
-import com.hua.github_app.loadview.LoadViewHelper
+import com.hua.github_app.lib.loadview.BaseLayoutProvider
+import com.hua.github_app.lib.loadview.LoadViewHelper
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUtils

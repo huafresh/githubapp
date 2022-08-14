@@ -2,7 +2,7 @@ package com.hua.github_app.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.hua.github_app.loadview.LoadViewHelper
+import com.hua.github_app.lib.loadview.LoadViewHelper
 import com.hua.github_app.utils.LogUtil
 
 /**

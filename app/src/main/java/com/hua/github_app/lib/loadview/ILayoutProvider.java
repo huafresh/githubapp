@@ -1,4 +1,4 @@
-package com.hua.github_app.loadview;
+package com.hua.github_app.lib.loadview;
 
 import android.content.Context;
 import android.view.View;
