@@ -31,8 +31,7 @@ class HomeViewModel : BaseViewModel() {
     private val _avatarUrl = MutableLiveData<String>()
     val avatarUrl: LiveData<String> = _avatarUrl
 
-    private val _drawerOpen = MutableLiveData<Boolean>()
-    val drawerOpen: LiveData<Boolean> = _drawerOpen
+    val openDrawer: EventLiveData<Boolean> = EventLiveData<Boolean>()
 
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
@@ -72,7 +71,7 @@ class HomeViewModel : BaseViewModel() {
 
     fun onClickDrawerEntrance(v: View) {
         launchMain({
-            _drawerOpen.value = true
+            openDrawer.setValue(true)
         }, {
             LogUtil.e(TAG, "onClickDrawerEntrance", it)
         })

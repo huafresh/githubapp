@@ -4,16 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
-import androidx.databinding.DataBindingUtil.setContentView
 import com.hua.github_app.R
 import com.hua.github_app.databinding.ActivityHomeBinding
 import com.hua.github_app.ui.fragment.RepoListFragment
 import com.hua.github_app.ui.viewmodel.HomeViewModel
+import com.hua.github_app.utils.LogUtil
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
@@ -64,13 +63,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     }
 
     override fun addObserves(binding: ActivityHomeBinding) {
-        homeVm.drawerOpen.observe(this) { open ->
+        homeVm.openDrawer.observe(this) { open ->
+            LogUtil.i("@@@hua", "addObserves: drawer open=$open, vm=${homeVm.hashCode()}")
             val slider = binding.slider
-            if (open) {
-                slider.drawerLayout?.openDrawer(slider)
-            } else {
-                slider.drawerLayout?.closeDrawer(slider)
-            }
+            slider.drawerLayout?.openDrawer(slider)
         }
         homeVm.user.observe(this) { user ->
             val headerView = binding.slider.headerView as? AccountHeaderView

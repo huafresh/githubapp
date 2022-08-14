@@ -89,7 +89,7 @@ abstract class BaseRepoListViewModel : BaseViewModel() {
     fun onClickRvItem(adapter: RepoListAdapter, position: Int) {
         launchMain({
             val itemData = adapter.getItem(position)
-            showSnackBar.value = itemData.name
+            showSnackBar.setValue(itemData.name ?: "unknown title")
         }, {
             LogUtil.e(TAG, "onClickRvItem", it)
         })

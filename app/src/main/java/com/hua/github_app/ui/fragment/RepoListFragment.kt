@@ -92,7 +92,7 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
                 loadViewHelper?.showWithType(viewType)
             }
         }
-        vm.showSnackBar.observeEvent(viewLifecycleOwner) { message ->
+        vm.showSnackBar.observe(viewLifecycleOwner) { message ->
             Snackbar.make(binding.recyclerView, message, Snackbar.LENGTH_SHORT).show()
         }
     }
