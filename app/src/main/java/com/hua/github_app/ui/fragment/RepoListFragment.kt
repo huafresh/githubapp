@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -13,8 +14,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.hjq.toast.ToastUtils
 import com.hua.github_app.R
 import com.hua.github_app.databinding.FragmentListBinding
+import com.hua.github_app.ext.hideSoftKeyboard
 import com.hua.github_app.ext.isScrollToEnd
 import com.hua.github_app.loadview.LoadViewHelper
+import com.hua.github_app.ui.activity.SearchActivity
 import com.hua.github_app.ui.adapter.RepoListAdapter
 import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
 import com.hua.github_app.ui.viewmodel.MyRepoListViewModel
@@ -45,6 +48,7 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
 
     private var vm: BaseRepoListViewModel? = null
     private var loadViewHelper: LoadViewHelper? = null
+    var rvScrollStateChangedListener: ((Int) -> Unit)? = null
 
     override fun createBinding(container: ViewGroup?): FragmentListBinding {
         return FragmentListBinding.inflate(layoutInflater, container, false)
@@ -108,6 +112,7 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
                 ) {
                     vm?.loadMoreData()
                 }
+                rvScrollStateChangedListener?.invoke(newState)
             }
         })
     }
@@ -119,9 +124,7 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
         refreshLayout.setColorSchemeColors(refreshLayout.context.getColor(R.color.primary_color))
     }
 
-    fun getViewModel(): BaseRepoListViewModel? {
-        return vm
+    fun onQueryTextSubmit(activity: SearchActivity, query: String?) {
+        (vm as? SearchRepoListViewModel)?.onQueryTextSubmit(activity, query)
     }
-
-
 }

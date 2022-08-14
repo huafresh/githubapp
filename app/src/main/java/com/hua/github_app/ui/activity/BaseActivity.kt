@@ -21,9 +21,11 @@ abstract class BaseActivity<binding : ViewBinding> : AppCompatActivity() {
         progressDialogHelper.observeShowingDialog(this)
     }
 
+    protected lateinit var binding: binding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = createBinding()
+        binding = createBinding()
         setContentView(binding.root)
         initData()
         initViews(binding)

@@ -9,8 +9,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.hua.github_app.R
 import com.hua.github_app.databinding.ActivitySearchBinding
+import com.hua.github_app.ext.hideSoftKeyboard
 import com.hua.github_app.ui.fragment.RepoListFragment
 import com.hua.github_app.ui.viewmodel.SearchRepoListViewModel
 import com.hua.github_app.ui.viewmodel.SearchViewModel
@@ -38,6 +42,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     private val repoListFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.fl_container) as? RepoListFragment
     }
+    private var searchView: SearchView? = null
 
     override fun createBinding(): ActivitySearchBinding {
         return ActivitySearchBinding.inflate(layoutInflater)
@@ -66,6 +71,12 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
                 .add(R.id.fl_container, repoFragment)
                 .commit()
         }
+        (repoFragment as? RepoListFragment)?.rvScrollStateChangedListener = { newState ->
+            if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                searchView?.enterCollapseState()
+                hideSoftKeyboard()
+            }
+        }
     }
 
     private fun setupToolbar(toolBar: Toolbar) {
@@ -92,9 +103,10 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     private fun setupSearchView(searchView: SearchView) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val repoVm = (repoListFragment?.getViewModel() as? SearchRepoListViewModel)
-                repoVm?.onQueryTextSubmit(this@SearchActivity, query)
+                repoListFragment?.onQueryTextSubmit(this@SearchActivity, query)
                 searchVm.onQueryTextSubmit(this@SearchActivity, query)
+                searchView.enterCollapseState()
+                hideSoftKeyboard()
                 return true
             }
 
@@ -103,7 +115,12 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
             }
         })
         searchView.isIconified = false
+        this.searchView = searchView
     }
 
-
+    private fun SearchView.enterCollapseState() {
+        this.clearFocus()
+        this.isIconified = true
+        this.isIconified = true
+    }
 }
