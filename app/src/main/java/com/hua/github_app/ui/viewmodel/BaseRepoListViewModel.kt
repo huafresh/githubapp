@@ -2,7 +2,11 @@ package com.hua.github_app.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.google.android.material.snackbar.Snackbar
+import com.hjq.toast.ToastUtils
 import com.hua.github_app.entity.Repository
+import com.hua.github_app.ui.adapter.RepoListAdapter
 import com.hua.github_app.utils.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,6 +33,8 @@ abstract class BaseRepoListViewModel : BaseViewModel() {
 
     private val _loadMoreDataList = MutableLiveData<List<Repository>>()
     val loadMoreDataList: LiveData<List<Repository>> = _loadMoreDataList
+
+    val showSnackBar: EventLiveData<String> = EventLiveData()
 
     val loadHelpViewModel = LoadHelpViewModel()
 
@@ -77,6 +83,15 @@ abstract class BaseRepoListViewModel : BaseViewModel() {
         }, {
             LogUtil.e(TAG, "loadMoreData", it)
             loadMoreRunning = false
+        })
+    }
+
+    fun onClickRvItem(adapter: RepoListAdapter, position: Int) {
+        launchMain({
+            val itemData = adapter.getItem(position)
+            showSnackBar.value = itemData.name
+        }, {
+            LogUtil.e(TAG, "onClickRvItem", it)
         })
     }
 

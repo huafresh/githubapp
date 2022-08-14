@@ -6,6 +6,10 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.google.android.material.snackbar.Snackbar
+import com.hjq.toast.ToastUtils
 import com.hua.github_app.R
 import com.hua.github_app.databinding.FragmentListBinding
 import com.hua.github_app.ext.isScrollToEnd
@@ -14,6 +18,7 @@ import com.hua.github_app.ui.adapter.RepoListAdapter
 import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
 import com.hua.github_app.ui.viewmodel.MyRepoListViewModel
 import com.hua.github_app.ui.viewmodel.SearchRepoListViewModel
+import com.hua.github_app.utils.LogUtil
 
 /**
  * Created on 2022/8/10.
@@ -82,17 +87,24 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
                 loadViewHelper?.showWithType(viewType)
             }
         }
+        vm.showSnackBar.observeEvent(viewLifecycleOwner) { message ->
+            Snackbar.make(binding.recyclerView, message, Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupRecyclerView(rv: RecyclerView) {
         rv.layoutManager = LinearLayoutManager(rv.context)
         val adapter = RepoListAdapter()
+        adapter.setOnItemClickListener { _, view, position ->
+            vm?.onClickRvItem(adapter, position)
+        }
         rv.adapter = adapter
         loadViewHelper = LoadViewHelper.wrap(rv)
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE &&
-                        rv.isScrollToEnd()) {
+                    rv.isScrollToEnd()
+                ) {
                     vm?.loadMoreData()
                 }
             }
@@ -103,6 +115,7 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
         refreshLayout.setOnRefreshListener {
             vm?.pullToRefresh()
         }
+        refreshLayout.setColorSchemeColors(refreshLayout.context.getColor(R.color.primary_color))
     }
 
     fun getViewModel(): BaseRepoListViewModel? {

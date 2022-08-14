@@ -17,7 +17,7 @@ ext {
     room_version = "2.2.6"
     activity_ktx_version = "1.2.3"
     coroutines_android_version = "1.4.2"
-    BRVHelper_version = "3.0.7"
+    BRVHelper_version = "3.0.6"
     circleimageview_version = "3.1.0"
     glide_version = "4.11.0"
     retrofit_version = "2.9.0"
