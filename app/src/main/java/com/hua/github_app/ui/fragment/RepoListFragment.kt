@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.hua.github_app.R
-import com.hua.github_app.base.BaseFragment
 import com.hua.github_app.databinding.FragmentListBinding
 import com.hua.github_app.ext.isScrollToEnd
 import com.hua.github_app.loadview.LoadViewHelper
@@ -15,7 +14,6 @@ import com.hua.github_app.ui.adapter.RepoListAdapter
 import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
 import com.hua.github_app.ui.viewmodel.MyRepoListViewModel
 import com.hua.github_app.ui.viewmodel.SearchRepoListViewModel
-import com.hua.github_app.utils.LogUtil
 
 /**
  * Created on 2022/8/10.

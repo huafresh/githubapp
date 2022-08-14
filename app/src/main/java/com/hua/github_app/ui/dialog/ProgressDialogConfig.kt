@@ -1,4 +1,4 @@
-package com.hua.github_app.base
+package com.hua.github_app.ui.dialog
 
 /**
  * Created on 2022/8/10.

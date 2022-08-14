@@ -1,6 +1,6 @@
 package com.hua.github_app.http.api
 
-import com.hua.github_app.http.entity.Repository
+import com.hua.github_app.entity.Repository
 import retrofit2.http.*
 
 /**

@@ -10,13 +10,10 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.hua.github_app.R
-import com.hua.github_app.base.BaseActivity
 import com.hua.github_app.databinding.ActivitySearchBinding
 import com.hua.github_app.ui.fragment.RepoListFragment
-import com.hua.github_app.ui.viewmodel.BaseRepoListViewModel
 import com.hua.github_app.ui.viewmodel.SearchRepoListViewModel
 import com.hua.github_app.ui.viewmodel.SearchViewModel
-import com.hua.github_app.utils.LogUtil
 
 /**
  * Created on 2022/8/11.

@@ -4,7 +4,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.hua.github_app.R
 import com.hua.github_app.databinding.LayoutItemRepositoryBinding
-import com.hua.github_app.http.entity.Repository
+import com.hua.github_app.entity.Repository
 import com.hua.github_app.image.ImageLoader
 
 /**

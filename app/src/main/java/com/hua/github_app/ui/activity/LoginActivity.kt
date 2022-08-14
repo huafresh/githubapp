@@ -7,10 +7,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.hua.github_app.R
-import com.hua.github_app.base.BaseActivity
 import com.hua.github_app.databinding.ActivityLoginBinding
 import com.hua.github_app.ui.viewmodel.LoginViewModel
-import com.hua.github_app.utils.LogUtil
 
 
 /**

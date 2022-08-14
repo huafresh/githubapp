@@ -1,9 +1,8 @@
 package com.hua.github_app.ui
 
 import android.os.Bundle
-import android.widget.Toast
 import com.hjq.toast.ToastUtils
-import com.hua.github_app.base.BaseActivity
+import com.hua.github_app.ui.activity.BaseActivity
 import com.hua.github_app.ui.activity.HomeActivity
 import com.hua.github_app.ui.activity.LoginActivity
 import com.hua.github_app.login.LoginManager

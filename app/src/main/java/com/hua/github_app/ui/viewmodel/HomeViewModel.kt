@@ -6,9 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
 import com.hua.github_app.R
-import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.http.AppRetrofit
-import com.hua.github_app.http.entity.User
+import com.hua.github_app.entity.User
 import com.hua.github_app.login.LoginManager
 import com.hua.github_app.ui.activity.SearchActivity
 import com.hua.github_app.utils.LogUtil

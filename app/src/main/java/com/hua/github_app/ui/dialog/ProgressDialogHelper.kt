@@ -1,10 +1,9 @@
-package com.hua.github_app.base
+package com.hua.github_app.ui.dialog
 
-import android.app.Activity
 import android.app.ProgressDialog
-import android.content.Context
 import androidx.fragment.app.FragmentActivity
 import com.hua.github_app.R
+import com.hua.github_app.ui.viewmodel.BaseViewModel
 
 /**
  * Created on 2022/8/10.

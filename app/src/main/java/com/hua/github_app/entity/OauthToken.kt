@@ -1,4 +1,4 @@
-package com.hua.github_app.http.entity
+package com.hua.github_app.entity
 
 import com.google.gson.annotations.SerializedName
 

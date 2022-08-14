@@ -1,12 +1,12 @@
-package com.hua.github_app.base
+package com.hua.github_app.ui.fragment
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.hua.github_app.R
+import com.hua.github_app.ui.viewmodel.BaseViewModel
+import com.hua.github_app.ui.dialog.ProgressDialogHelper
 
 /**
  * Created on 2022/8/10.

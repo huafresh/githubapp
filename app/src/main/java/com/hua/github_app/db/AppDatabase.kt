@@ -29,12 +29,5 @@ abstract class AppDatabase : RoomDatabase() {
             }
             return instance!!
         }
-
-        fun switchToMemory(context: Context) {
-            instance = Room.inMemoryDatabaseBuilder(
-                context.applicationContext,
-                AppDatabase::class.java
-            ).build()
-        }
     }
 }

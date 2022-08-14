@@ -2,8 +2,7 @@ package com.hua.github_app.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.hua.github_app.base.BaseViewModel
-import com.hua.github_app.http.entity.Repository
+import com.hua.github_app.entity.Repository
 import com.hua.github_app.utils.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -1,10 +1,8 @@
-package com.hua.github_app.base
+package com.hua.github_app.ui.activity
 
-import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.ViewDataBinding
-import androidx.viewbinding.ViewBinding
-import com.hua.github_app.R
+import com.hua.github_app.ui.viewmodel.BaseViewModel
+import com.hua.github_app.ui.dialog.ProgressDialogHelper
 
 /**
  * Created on 2022/8/10.

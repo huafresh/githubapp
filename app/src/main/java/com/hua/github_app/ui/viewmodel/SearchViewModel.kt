@@ -1,11 +1,8 @@
 package com.hua.github_app.ui.viewmodel
 
 import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.hua.github_app.R
-import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.utils.LogUtil
 
 /**

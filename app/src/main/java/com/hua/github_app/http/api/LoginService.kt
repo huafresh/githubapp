@@ -1,6 +1,6 @@
 package com.hua.github_app.http.api
 
-import com.hua.github_app.http.entity.OauthToken
+import com.hua.github_app.entity.OauthToken
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query

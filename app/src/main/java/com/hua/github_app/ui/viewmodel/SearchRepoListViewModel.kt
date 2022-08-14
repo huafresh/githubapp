@@ -9,7 +9,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.hjq.toast.ToastUtils
 import com.hua.github_app.R
 import com.hua.github_app.http.AppRetrofit
-import com.hua.github_app.http.entity.Repository
+import com.hua.github_app.entity.Repository
 import com.hua.github_app.utils.LogUtil
 
 /**

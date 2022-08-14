@@ -1,6 +1,7 @@
-package com.hua.github_app.base
+package com.hua.github_app.ui.viewmodel
 
 import androidx.lifecycle.*
+import com.hua.github_app.ui.dialog.ProgressDialogConfig
 import com.hua.github_app.utils.LogUtil
 import kotlinx.coroutines.*
 

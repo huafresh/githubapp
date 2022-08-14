@@ -8,7 +8,7 @@
 
         <variable
             name="item"
-            type="com.hua.github_app.http.entity.Repository" />
+            type="com.hua.github_app.entity.Repository" />
     </data>
 
     <androidx.cardview.widget.CardView

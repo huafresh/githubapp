@@ -6,10 +6,8 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.hjq.toast.ToastUtils
-import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.AppConfig
 import com.hua.github_app.R
 import com.hua.github_app.ui.activity.HomeActivity

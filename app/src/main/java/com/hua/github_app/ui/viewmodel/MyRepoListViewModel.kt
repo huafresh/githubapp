@@ -1,7 +1,7 @@
 package com.hua.github_app.ui.viewmodel
 
 import com.hua.github_app.http.AppRetrofit
-import com.hua.github_app.http.entity.Repository
+import com.hua.github_app.entity.Repository
 import com.hua.github_app.utils.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

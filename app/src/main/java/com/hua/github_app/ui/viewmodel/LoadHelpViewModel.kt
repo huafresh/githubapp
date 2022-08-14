@@ -1,9 +1,7 @@
 package com.hua.github_app.ui.viewmodel
 
-import android.widget.LinearLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.hua.github_app.base.BaseViewModel
 import com.hua.github_app.loadview.LoadViewHelper
 import com.hua.github_app.utils.LogUtil
 
