@@ -127,11 +127,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     }
 
     private fun setupRepoListFragment() {
-        supportFragmentManager.beginTransaction()
-            .add(
-                R.id.fl_container,
-                RepoListFragment.newInstance(RepoListFragment.REPO_TYPE_MY)
-            )
-            .commit()
+        var repoFragment = supportFragmentManager.findFragmentById(R.id.fl_container)
+        if (repoFragment == null) {
+            repoFragment = RepoListFragment.newInstance(RepoListFragment.REPO_TYPE_MY)
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fl_container, repoFragment)
+                .commit()
+        }
     }
 }

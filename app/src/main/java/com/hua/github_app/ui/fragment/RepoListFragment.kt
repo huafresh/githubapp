@@ -3,6 +3,7 @@ package com.hua.github_app.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -45,8 +46,8 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
     private var vm: BaseRepoListViewModel? = null
     private var loadViewHelper: LoadViewHelper? = null
 
-    override fun createBinding(): FragmentListBinding {
-        return FragmentListBinding.inflate(layoutInflater)
+    override fun createBinding(container: ViewGroup?): FragmentListBinding {
+        return FragmentListBinding.inflate(layoutInflater, container, false)
     }
 
     override fun initData() {

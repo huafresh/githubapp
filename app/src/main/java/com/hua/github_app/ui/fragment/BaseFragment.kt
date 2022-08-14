@@ -31,7 +31,7 @@ abstract class BaseFragment<binding : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = createBinding()
+        binding = createBinding(container)
         return binding?.root
     }
 
@@ -53,7 +53,7 @@ abstract class BaseFragment<binding : ViewBinding> : Fragment() {
         progressDialogHelper?.onDestroy()
     }
 
-    protected abstract fun createBinding(): binding
+    protected abstract fun createBinding(container: ViewGroup?): binding
     protected abstract fun initData()
     protected abstract fun initViews(binding: binding)
     protected abstract fun addObserves(binding: binding)

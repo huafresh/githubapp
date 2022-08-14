@@ -36,7 +36,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
     private val searchVm: SearchViewModel by viewModels()
     private val repoListFragment by lazy {
-        RepoListFragment.newInstance(RepoListFragment.REPO_TYPE_SEARCH)
+        supportFragmentManager.findFragmentById(R.id.fl_container) as? RepoListFragment
     }
 
     override fun createBinding(): ActivitySearchBinding {
@@ -59,9 +59,13 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     }
 
     private fun setupRepoListFragment() {
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fl_container, repoListFragment)
-            .commit()
+        var repoFragment = supportFragmentManager.findFragmentById(R.id.fl_container)
+        if (repoFragment == null) {
+            repoFragment = RepoListFragment.newInstance(RepoListFragment.REPO_TYPE_SEARCH)
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fl_container, repoFragment)
+                .commit()
+        }
     }
 
     private fun setupToolbar(toolBar: Toolbar) {
@@ -88,7 +92,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     private fun setupSearchView(searchView: SearchView) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val repoVm = (repoListFragment.getViewModel() as? SearchRepoListViewModel)
+                val repoVm = (repoListFragment?.getViewModel() as? SearchRepoListViewModel)
                 repoVm?.onQueryTextSubmit(this@SearchActivity, query)
                 searchVm.onQueryTextSubmit(this@SearchActivity, query)
                 return true
