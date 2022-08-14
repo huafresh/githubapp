@@ -23,8 +23,9 @@ abstract class BaseActivity<binding : ViewBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = initBinding()
+        val binding = createBinding()
         setContentView(binding.root)
+        initData()
         initViews(binding)
         addObserves(binding)
     }
@@ -34,7 +35,7 @@ abstract class BaseActivity<binding : ViewBinding> : AppCompatActivity() {
         progressDialogHelper.onDestroy()
     }
 
-    protected abstract fun initBinding(): binding
+    protected abstract fun createBinding(): binding
     protected abstract fun initData()
     protected abstract fun initViews(binding: binding)
     protected abstract fun addObserves(binding: binding)

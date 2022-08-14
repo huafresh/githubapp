@@ -46,7 +46,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     private val homeVm: HomeViewModel by viewModels()
 
-    override fun initBinding(): ActivityHomeBinding {
+    override fun createBinding(): ActivityHomeBinding {
         val binding = ActivityHomeBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.vm = homeVm

@@ -32,7 +32,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     private val loginVm: LoginViewModel by viewModels()
 
-    override fun initBinding(): ActivityLoginBinding {
+    override fun createBinding(): ActivityLoginBinding {
         val binding = ActivityLoginBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.vm = loginVm

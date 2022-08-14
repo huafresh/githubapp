@@ -34,7 +34,7 @@ class GithubApp : Application() {
 
     private fun initMaterialDrawerWidget() {
         DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
-            override fun placeholder(ctx: Context): Drawable {
+            override fun placeholder(ctx: Context, tag: String?): Drawable {
                 return AppCompatResources.getDrawable(ctx, R.drawable.logo_big)
                     ?: DrawerUtils.getPlaceHolder(ctx)
             }

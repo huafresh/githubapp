@@ -20,7 +20,7 @@ import com.hua.github_app.ui.viewmodel.SearchRepoListViewModel
  *
  * @author hua
  */
-class RepoListFragment : BaseFragment() {
+class RepoListFragment : BaseFragment<FragmentListBinding>() {
     companion object {
         private const val TAG = "RepoListFragment"
 
@@ -38,22 +38,13 @@ class RepoListFragment : BaseFragment() {
     }
 
     private var vm: BaseRepoListViewModel? = null
-
-    override fun layoutId(): Int {
-        return R.layout.fragment_list
-    }
-
     private var loadViewHelper: LoadViewHelper? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentListBinding.bind(view)
-        initData()
-        initViews(binding)
-        observes(binding)
+    override fun createBinding(): FragmentListBinding {
+        return FragmentListBinding.inflate(layoutInflater)
     }
 
-    private fun initData() {
+    override fun initData() {
         val repoType = arguments?.getInt(KEY_REPO_TYPE) ?: REPO_TYPE_MY
         vm = when (repoType) {
             REPO_TYPE_SEARCH -> {
@@ -66,8 +57,13 @@ class RepoListFragment : BaseFragment() {
         vm?.initData()
     }
 
+    override fun initViews(binding: FragmentListBinding) {
+        setupRecyclerView(binding.recyclerView)
+        setupSwipeRefreshLayout(binding.swipeRefreshLayout)
+    }
+
     @SuppressLint("NotifyDataSetChanged")
-    private fun observes(binding: FragmentListBinding) {
+    override fun addObserves(binding: FragmentListBinding) {
         val vm = vm ?: return
         vm.observeShowingDialog()
         vm.isRefreshing.observe(viewLifecycleOwner) { isRefreshing ->
@@ -86,11 +82,6 @@ class RepoListFragment : BaseFragment() {
                 loadViewHelper?.showWithType(viewType)
             }
         }
-    }
-
-    private fun initViews(binding: FragmentListBinding) {
-        setupRecyclerView(binding.recyclerView)
-        setupSwipeRefreshLayout(binding.swipeRefreshLayout)
     }
 
     private fun setupRecyclerView(rv: RecyclerView) {
@@ -117,4 +108,6 @@ class RepoListFragment : BaseFragment() {
     fun getViewModel(): BaseRepoListViewModel? {
         return vm
     }
+
+
 }

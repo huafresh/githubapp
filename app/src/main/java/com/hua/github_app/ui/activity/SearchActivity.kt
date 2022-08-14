@@ -39,7 +39,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         RepoListFragment.newInstance(RepoListFragment.REPO_TYPE_SEARCH)
     }
 
-    override fun initBinding(): ActivitySearchBinding {
+    override fun createBinding(): ActivitySearchBinding {
         return ActivitySearchBinding.inflate(layoutInflater)
     }
 
