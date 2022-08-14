@@ -13,7 +13,7 @@ import com.hua.github_app.utils.LogUtil
  *
  * @author hua
  */
-class EventLiveData<T> : MutableLiveData<T>() {
+class OneshotLiveData<T> : MutableLiveData<T>() {
 
     override fun setValue(value: T) {
         super.setValue(value)

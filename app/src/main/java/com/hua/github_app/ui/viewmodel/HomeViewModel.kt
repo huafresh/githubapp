@@ -31,7 +31,7 @@ class HomeViewModel : BaseViewModel() {
     private val _avatarUrl = MutableLiveData<String>()
     val avatarUrl: LiveData<String> = _avatarUrl
 
-    val openDrawer: EventLiveData<Boolean> = EventLiveData<Boolean>()
+    val openDrawer: OneshotLiveData<Boolean> = OneshotLiveData<Boolean>()
 
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
