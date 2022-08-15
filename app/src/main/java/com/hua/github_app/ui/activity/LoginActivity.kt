@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.viewModels
+import com.hua.github_app.R
 import com.hua.github_app.databinding.ActivityLoginBinding
 import com.hua.github_app.ui.viewmodel.LoginViewModel
 
@@ -48,7 +49,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     private fun setupActionBar() {
-        supportActionBar?.title = "login"
+        supportActionBar?.title = getString(R.string.login_title)
     }
 
     override fun onNewIntent(intent: Intent?) {
