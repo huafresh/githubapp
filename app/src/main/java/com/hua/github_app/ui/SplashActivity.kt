@@ -25,18 +25,18 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         GlobalScope.launch(Dispatchers.Main.immediate) {
-            LoginManager.autoLogin(this@SplashActivity)
+            val activity = this@SplashActivity
+            LoginManager.autoLogin(activity)
             if (LoginManager.isLogin()) {
-                val granted = PermissionUtil.checkStoragePermission(this@SplashActivity)
+                val granted = PermissionUtil.checkStoragePermission(activity)
                 if (granted) {
-                    HomeActivity.show(this@SplashActivity)
+                    HomeActivity.show(activity)
                 } else {
                     ToastUtils.show("no permission")
                     delay(2000)
-                    finish()
                 }
             } else {
-                LoginActivity.show(this@SplashActivity)
+                LoginActivity.show(activity)
             }
             finish()
         }

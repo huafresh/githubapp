@@ -15,7 +15,8 @@ object PermissionUtil {
 
     suspend fun checkStoragePermission(activity: FragmentActivity): Boolean {
         return suspendCoroutine { continuation ->
-            PermissionX.init(activity).permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            PermissionX.init(activity)
+                .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .request { allGranted, _, _ ->
                     continuation.resume(allGranted)
                 }

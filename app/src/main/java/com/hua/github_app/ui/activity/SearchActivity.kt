@@ -71,10 +71,13 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
                 .add(R.id.fl_container, repoFragment)
                 .commit()
         }
-        (repoFragment as? RepoListFragment)?.rvScrollStateChangedListener = { newState ->
-            if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                searchView?.enterCollapseState()
-                hideSoftKeyboard()
+        (repoFragment as? RepoListFragment)?.run {
+            setViewModel(SearchRepoListViewModel())
+            rvScrollStateChangedListener = { newState ->
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    searchView?.enterCollapseState()
+                    hideSoftKeyboard()
+                }
             }
         }
     }

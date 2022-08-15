@@ -22,7 +22,7 @@ class ProgressDialogHelper(private val activity: FragmentActivity) {
         return progressDialog!!
     }
 
-    fun observeShowingDialog(vm: BaseViewModel) {
+    fun observeProgressDialog(vm: BaseViewModel) {
         vm.progressDialogConfig.observe(activity) { dialogConfig ->
             val dialog = getProgressDialog()
             val message = dialogConfig.message

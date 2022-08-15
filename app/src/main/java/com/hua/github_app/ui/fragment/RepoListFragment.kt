@@ -39,8 +39,12 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
         }
     }
 
-    private var vm: BaseRepoListViewModel? = null
+    private lateinit var vm: BaseRepoListViewModel
     private var loadViewHelper: LoadViewHelper? = null
+
+    /**
+     * Invoked when recyclerView scroll state changed
+     */
     var rvScrollStateChangedListener: ((Int) -> Unit)? = null
 
     override fun createBinding(container: ViewGroup?): FragmentListBinding {
@@ -48,16 +52,7 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
     }
 
     override fun initData() {
-        val repoType = arguments?.getInt(KEY_REPO_TYPE) ?: REPO_TYPE_MY
-        vm = when (repoType) {
-            REPO_TYPE_SEARCH -> {
-                SearchRepoListViewModel()
-            }
-            else -> {
-                MyRepoListViewModel()
-            }
-        }
-        vm?.initData()
+        vm.initData()
     }
 
     override fun initViews(binding: FragmentListBinding) {
@@ -94,7 +89,7 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
         rv.layoutManager = LinearLayoutManager(rv.context)
         val adapter = RepoListAdapter()
         adapter.setOnItemClickListener { _, view, position ->
-            vm?.onClickRvItem(adapter, position)
+            vm.onClickRvItem(adapter, position)
         }
         rv.adapter = adapter
         loadViewHelper = LoadViewHelper.wrap(rv)
@@ -103,7 +98,7 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE &&
                     rv.isScrollToEnd()
                 ) {
-                    vm?.loadMoreData()
+                    vm.loadMoreData()
                 }
                 rvScrollStateChangedListener?.invoke(newState)
             }
@@ -112,12 +107,16 @@ class RepoListFragment : BaseFragment<FragmentListBinding>() {
 
     private fun setupSwipeRefreshLayout(refreshLayout: SwipeRefreshLayout) {
         refreshLayout.setOnRefreshListener {
-            vm?.pullToRefresh()
+            vm.pullToRefresh()
         }
         refreshLayout.setColorSchemeColors(refreshLayout.context.getColor(R.color.primary_color))
     }
 
     fun onQueryTextSubmit(activity: SearchActivity, query: String?) {
         (vm as? SearchRepoListViewModel)?.onQueryTextSubmit(activity, query)
+    }
+
+    fun setViewModel(viewModel: BaseRepoListViewModel) {
+        this.vm = viewModel
     }
 }

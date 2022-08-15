@@ -3,10 +3,7 @@ package com.hua.github_app.ui.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
-import com.hua.github_app.R
 import com.hua.github_app.databinding.ActivityLoginBinding
 import com.hua.github_app.ui.viewmodel.LoginViewModel
 
@@ -47,7 +44,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     override fun addObserves(binding: ActivityLoginBinding) {
-        loginVm.observeShowingDialog()
+        loginVm.observeProgressDialog()
     }
 
     private fun setupActionBar() {

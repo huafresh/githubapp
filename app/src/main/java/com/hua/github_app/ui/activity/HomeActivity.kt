@@ -9,13 +9,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hua.github_app.R
 import com.hua.github_app.databinding.ActivityHomeBinding
 import com.hua.github_app.ui.fragment.RepoListFragment
-import com.hua.github_app.ui.viewmodel.BaseViewModel
 import com.hua.github_app.ui.viewmodel.HomeViewModel
+import com.hua.github_app.ui.viewmodel.MyRepoListViewModel
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
@@ -67,7 +66,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     }
 
     override fun addObserves(binding: ActivityHomeBinding) {
-        homeVm.observeShowingDialog()
+        homeVm.observeProgressDialog()
         homeVm.openOrDrawer.observe(this) { open ->
             val slider = binding.slider
             if (open) {
@@ -142,6 +141,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
                 .add(R.id.fl_container, repoFragment)
                 .commit()
         }
+        (repoFragment as? RepoListFragment)?.setViewModel(MyRepoListViewModel())
     }
 
     private fun createLogoutDialogIfNeed() {
