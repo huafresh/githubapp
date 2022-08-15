@@ -9,13 +9,21 @@ switching of image loading framework.
 
 ## Directory introduction
 db: Store database related codes, such as the definition of Entity and Dao
+
 entity: Storage data entity class
+
 ext: Store kotlin extension codes
+
 http: Store the code related to the network request
+
 image: Store image loading related codes
+
 lib: Store custom frameworks. Each subdirectory corresponds to a framework. 
     For example, loadview corresponds to a framework for resolving view switching 
     such as loading / loading failure / no content.
+
 login: Store login related codes
+
 ui: Store UI codes
+
 utils: Store various tool classes
